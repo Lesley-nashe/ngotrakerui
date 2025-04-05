@@ -44,10 +44,10 @@ const LoginPage = () => {
         </button>
 
         <div className="flex flex-now justify-between w-full mt-6">
-          <button className="w-3/8 border-2 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
+          <button className="w-3/8 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
             forgot password
           </button>
-          <button className="w-3/8 border-2 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
+          <button className="w-3/8 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
             Sign Up
           </button>
         </div>
