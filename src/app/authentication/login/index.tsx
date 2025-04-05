@@ -40,8 +40,17 @@ const LoginPage = () => {
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
         >
-          Sign In
+          Log in
         </button>
+
+        <div className="flex flex-now justify-between w-full mt-6">
+          <button className="w-3/8 border-2 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
+            forgot password
+          </button>
+          <button className="w-3/8 border-2 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
+            Sign Up
+          </button>
+        </div>
       </div>
     </div>
   );

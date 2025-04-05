@@ -1,10 +1,12 @@
 import React from 'react'
-import SignUpPage from './signup'
+// import SignUpPage from './signup'
+import LoginPage from './login'
 
 const authentication = () => {
   return (
     <div>
-        <SignUpPage />
+        {/* <SignUpPage /> */}
+        <LoginPage />
       
     </div>
   )

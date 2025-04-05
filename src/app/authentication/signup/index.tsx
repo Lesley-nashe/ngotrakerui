@@ -3,7 +3,7 @@ import React from "react";
 const SignUpPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-lg">
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-xl">
         <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
         <div className="grid grid-cols-2 gap-4">
           {[
