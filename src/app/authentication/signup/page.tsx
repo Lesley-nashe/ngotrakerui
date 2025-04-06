@@ -25,13 +25,13 @@ const SignUpPage = () => {
           <Form>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { label: "Name", name: "name", type: "text" },
-                { label: "Surname", name: "surname", type: "text" },
-                { label: "Username", name: "username", type: "text" },
-                { label: "Email", name: "email", type: "email" },
-                { label: "Password", name: "password", type: "password" },
+                { label: "Name:", name: "name", type: "text" },
+                { label: "Surname:", name: "surname", type: "text" },
+                { label: "Username:", name: "username", type: "text" },
+                { label: "Email:", name: "email", type: "email" },
+                { label: "Password:", name: "password", type: "password" },
                 {
-                  label: "Confirm Password",
+                  label: "Confirm Password:",
                   name: "confirmPassword",
                   type: "password",
                 },

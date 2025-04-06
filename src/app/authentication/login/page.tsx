@@ -19,11 +19,11 @@ const LoginPage = () => {
         >
           <Form>
             <div className="mb-4">
-              <FormInput title={"Email"} name={"email"} />
+              <FormInput title={"Email:"} name={"email"} />
             </div>
 
             <div className="mb-6">
-              <FormInput title={"Password"} name={"password"} />
+              <FormInput title={"Password:"} name={"password"} />
             </div>
 
             <button
