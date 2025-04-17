@@ -1,23 +1,30 @@
+import { FC } from "react"
+
+interface TableOtions {
+    Colmuns: string[]
+    Cell:string
+}
+
 const applications = [
-  {
-    ngo: "Hope Foundation",
-    grant: "Youth Empowerment",
-    status: "Pending",
-    date: "2025-04-16",
-  },
-  {
-    ngo: "Tech for All",
-    grant: "Digital Literacy",
-    status: "Approved",
-    date: "2025-04-14",
-  },
-];
+    {
+      ngo: "Hope Foundation",
+      grant: "Youth Empowerment",
+      status: "Pending",
+      date: "2025-04-16",
+    },
+    {
+      ngo: "Tech for All",
+      grant: "Digital Literacy",
+      status: "Approved",
+      date: "2025-04-14",
+    },
+  ];
+  
+  const columns = ["ngo", "grant", "status", "date"];
 
-const columns = ["ngo", "grant", "status", "date"];
-
-const ApplicationsPage = () => {
-  return (
-    <div className="p-6 max-w-7xl mx-auto">
+const Table: FC<TableOtions> = () => {
+    return (
+        <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">
         Grant Applications
       </h1>
@@ -34,7 +41,9 @@ const ApplicationsPage = () => {
             </tr>
           </thead>
           <tbody>
+            
             {applications.map((app, i) => (
+
               <tr
                 key={i}
                 className="border-b border-gray-100 hover:bg-gray-50 transition"
@@ -54,12 +63,14 @@ const ApplicationsPage = () => {
                 </td>
                 <td className="px-6 py-4">{app.date}</td>
               </tr>
+
+
             ))}
           </tbody>
         </table>
       </div>
     </div>
-  );
-};
+    )
+}
 
-export default ApplicationsPage;
+export default Table
