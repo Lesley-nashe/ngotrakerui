@@ -39,6 +39,27 @@ const ngos = [
   },
 ] as NgoDetails[];
 
+const fetchNgos = async () => {
+  const ngos = await fetch("http://localhost:5189/api/Ngo/ngos", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!ngos.ok) {
+    throw new Error("Failed to fetch NGOs");
+  }
+
+  const fetchedNgos = ngos.json();
+  return fetchedNgos;
+};
+
+const fetchAndLog = async () => {
+  const ngos = await fetchNgos();
+  console.log(ngos);
+};
+
+fetchAndLog();
+
 const NGOListPage = () => {
   return (
     <div className="p-6 max-w-7xl mx-auto">

@@ -13,6 +13,30 @@ const applications = [
   },
 ];
 
+const fetchApplications = async () => {
+  const applications = await fetch(
+    "http://localhost:5189/api/Application/applications",
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+
+  if (!applications.ok) {
+    throw new Error("Failed to load appliations");
+  }
+
+  const fetchedAppliations = applications.json();
+  return fetchedAppliations;
+};
+
+const fetchAndLog = async () => {
+  const applications = await fetchApplications();
+  console.log(applications);
+};
+
+fetchAndLog();
+
 const columns = ["ngo", "grant", "status", "date"];
 
 const ApplicationsPage = () => {
