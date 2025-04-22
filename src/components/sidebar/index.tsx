@@ -10,7 +10,7 @@ const Sidebar = () => {
     { name: "Applications", path: "/applications" },
   ];
   return (
-    <aside className="w-64 bg-white shadow-md border-r hidden md:block">
+    <aside className="sticky w-64 bg-white shadow-md border-r hidden md:block">
       <div className="p-6 text-2xl font-bold text-indigo-600">NGO Tracker</div>
       <nav className="mt-8 space-y-2">
         {navItems.map((item) => (

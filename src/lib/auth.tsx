@@ -44,7 +44,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             user = {
               id: userData.id,
               firstName: userData.firstName,
-              SecondName: userData.secondName,
+              secondName: userData.secondName,
               role: userData.role,
               userName: userData.userName,
               email: userData.email,
@@ -67,24 +67,36 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   pages: {
-    signIn: "/authentication/signup",
+    signIn: "/authentication/login",
     error: "/silent-error",
   },
-  // session: {
-  //   strategy: "jwt",
-  // },
-  // callbacks: {
-  //   async jwt({ token, user }) {
-  //     if (user) {
-  //       token.id = user.id;
-  //       token.email = user.email;
-  //     }
-  //     return token;
-  //   },
-  //   async session({ session, token }) {
-  //     session.user.id = token.id as string ?? "";
-  //     session.user.email = token.email as string ?? "";
-  //     return session;
-  //   },
-  // },
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Always allow relative URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Only allow URLs starting with baseUrl
+      if (url.startsWith(baseUrl)) return url;
+      return baseUrl;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.isLoggedIn = true;
+        token.jwtToken = user.jwtToken;
+        token.refreshToken = user.refreshToken;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = (token.id as string) ?? "";
+      session.user.email = (token.email as string) ?? "";
+      session.user.firstName = (token.firstName as string) ?? "";
+      session.user.secondName = (token.secondName as string) ?? "";
+      session.user.role = (token.role as string) ?? "";
+      session.user.userName = (token.userName as string) ?? "";
+      return session;
+    },
+  },
 });

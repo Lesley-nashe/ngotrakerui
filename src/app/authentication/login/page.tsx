@@ -28,7 +28,8 @@ const LoginPage = () => {
   const onSumbit = async(data: FormData) => 
     {
       const result = await signIn('credentials',{
-        redirect: false,
+        callbackUrl: "/dashboard",
+        redirect: true,
         email: data.email,
         password: data.password,
       })
