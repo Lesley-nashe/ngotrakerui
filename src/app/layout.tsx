@@ -1,8 +1,6 @@
-"use client";
 
-import Navbar from "@/components/navheader";
+"use client";
 import "./globals.css";
-import Sidebar from "@/components/sidebar";
 
 function RootLayout({
   children,
@@ -12,19 +10,9 @@ function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="min-h-screen flex bg-gray-50">
-          {/* Sidebar */}
-
-          <Sidebar />
-          {/* Content */}
-          <div className="flex-1 flex flex-col">
-            {/* Topbar */}
-            <Navbar />
-
-            {/* Page content */}
-            <main className="p-6">{children}</main>
+        <div>
+            <main>{children}</main>
           </div>
-        </div>
       </body>
     </html>
   );

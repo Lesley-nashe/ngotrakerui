@@ -48,7 +48,7 @@ const grantsFetch = async () => {
   if (!grants.ok) {
     throw new Error("Failed to fetch the grants");
   }
-  const fetchedGrants = grants.json();
+  const fetchedGrants = await grants.json();
   return fetchedGrants;
 };
 
@@ -68,7 +68,7 @@ const GrantListPage = () => {
         </h1>
         <Link
           className="bg-indigo-600 text-white px-4 py-4 rounded-lg hover:bg-indigo-700 transition"
-          href={`/grants/create`}
+          href={`grants/create`}
         >
           Submit NGO
         </Link>
@@ -76,7 +76,7 @@ const GrantListPage = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {grants.map((grant, i) => (
-          <Link key={i} href={`/grants/create`}>
+          <Link key={i} href={`grants/update`}>
             <GrantCompoent
               name={grant.name}
               location={grant.location}

@@ -1,4 +1,4 @@
-const CreateGrant = () => {
+const UpdateGrant = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-6 col-1">
       <div>
@@ -58,4 +58,4 @@ const CreateGrant = () => {
   );
 };
 
-export default CreateGrant;
+export default UpdateGrant;

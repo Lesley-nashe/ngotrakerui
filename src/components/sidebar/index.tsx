@@ -4,10 +4,10 @@ import { usePathname } from "next/navigation";
 const Sidebar = () => {
   const pathname = usePathname();
   const navItems = [
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "NGOs", path: "/ngos" },
-    { name: "Grants", path: "/grants" },
-    { name: "Applications", path: "/applications" },
+    { name: "Dashboard", path: "/auth/dashboard" },
+    { name: "NGOs", path: "/auth/ngos" },
+    { name: "Grants", path: "/auth/grants" },
+    { name: "Applications", path: "/auth/applications" },
   ];
   return (
     <aside className="sticky w-64 bg-white shadow-md border-r hidden md:block">

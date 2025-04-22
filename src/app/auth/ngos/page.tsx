@@ -19,7 +19,7 @@ try {
       throw new Error("Failed to fetch NGOs");
     }
 
-    const fetchedNgos = ngos.json();
+    const fetchedNgos = await ngos.json();
     return fetchedNgos;
   };
 
@@ -52,7 +52,7 @@ const NGOListPage = () => {
         </h1>
         <Link
           className="bg-indigo-600 text-white px-4 py-4 rounded-lg hover:bg-indigo-700 transition"
-          href={`/grants/create`}
+          href={`ngos/create`}
         >
           Submit Grant
         </Link>
@@ -60,7 +60,7 @@ const NGOListPage = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {ngos.map((ngo, i) => (
-          <Link key={i} href={`/ngos/create`}>
+          <Link key={i} href={`ngos/update`}>
             <NgoCompoent
               name={ngo.name}
               location={ngo.location}
