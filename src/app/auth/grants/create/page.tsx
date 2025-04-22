@@ -1,4 +1,70 @@
+"use client";
+
+import { CreateGrantRequest } from "@/app/api/grants/route";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+
+type FormData = {
+  title: string;
+  provider: string;
+  amount: string;
+  currency: string;
+  description: string;
+  eligibility: string;
+  email: string;
+  phoneNumber: string;
+};
 const CreateGrant = () => {
+  const schema = yup
+      .object({
+        title: yup.string().required(),
+        provider: yup.string().required(),
+        amount: yup.string().required(),
+        currency: yup.string().required(),
+        description: yup.string().required(),
+        eligibility: yup.string().required(),
+        email: yup.string().required(),
+        phoneNumber: yup.string().required(),
+      })
+      .required();
+  
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm({
+      resolver: yupResolver(schema),
+    });
+
+     const onSumbit = async (data: FormData) => {
+        const {
+          title,
+          provider,
+          amount,
+          currency,
+          description,
+          eligibility,
+          email,
+          phoneNumber,
+        } = data;
+        const result = await CreateGrantRequest({
+          title,
+          provider,
+          amount,
+          currency,
+          description,
+          eligibility,
+          email,
+          phoneNumber,
+        });
+    
+        if (!result) {
+          console.log(result);
+        } else {
+          console.log("Rgistered!", result);
+        }
+      };
   return (
     <div className="min-h-screen bg-gray-50 p-6 col-1">
       <div>

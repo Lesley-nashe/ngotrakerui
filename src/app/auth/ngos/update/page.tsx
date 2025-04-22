@@ -1,55 +1,73 @@
-type NgoDetails = {
-    name: string;
-    location: string;
-    mission: string;
+"use client";
+
+import { UpdateNgoRequest } from "@/app/api/ngos/route";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+
+type FormData = {
+  name: string;
+  address: string;
+  country: string;
+  registrationNumber: string;
+  description: string;
+  email: string;
+  phoneNumber: string;
+  sector: string;
+};
+
+const UpdateNGO = () => {
+  const schema = yup
+    .object({
+      name: yup.string().required(),
+      address: yup.string().required(),
+      country: yup.string().required(),
+      registrationNumber: yup.string().required(),
+      description: yup.string().required(),
+      sector: yup.string().required(),
+      email: yup.string().required(),
+      phoneNumber: yup.string().required(),
+    })
+    .required();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSumbit = async (data: FormData) => {
+    const {
+      name,
+      address,
+      country,
+      registrationNumber,
+      email,
+      phoneNumber,
+      sector,
+      description,
+    } = data;
+    const result = await UpdateNgoRequest({
+      name,
+      address,
+      country,
+      registrationNumber,
+      email,
+      phoneNumber,
+      sector,
+      description,
+    });
+
+    if (!result) {
+      console.log(result);
+    } else {
+      console.log("Rgistered!", result);
+    }
   };
-  
-  const ngoId = "id";
-  
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let ngo: NgoDetails = {
-    name: "",
-    location: "",
-    mission: "",
-  };
-  
-  try {
-    const fetchNgo = async (id: string) => {
-      const ngo = await fetch(`http://localhost:5189/api/Ngo/ngo?Id=${id}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-  
-      if (!ngo.ok) {
-        throw new Error("Failed to fetch NGOs");
-      }
-  
-      const fetchedNgo = ngo.json();
-      return fetchedNgo;
-    };
-  
-    const fetchAndLog = async (id: string) => {
-      const data = await fetchNgo(id);
-      ngo = data.result.map(
-        (item: { name: string; country: string; mission: string }) => {
-          return {
-            name: item.name,
-            location: item.country,
-            mission: item.mission,
-          };
-        }
-      );
-    };
-  
-    fetchAndLog(ngoId);
-  
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    throw new Error(error);
-  }
-  const UpdateNGO = () => {
-    return (
-      <div className="min-h-screen bg-gray-50 p-6 col-1">
+  return (
+    <div className="min-h-screen bg-gray-50 p-6 col-1">
       <div>
         <h1 className="text-3xl font-bold mb-6 text-gray-800">
           Registered NGOs
@@ -61,7 +79,7 @@ type NgoDetails = {
             Register New NGO
           </h1>
 
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit(onSumbit)}>
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 NGO Name
@@ -70,19 +88,23 @@ type NgoDetails = {
                 type="text"
                 placeholder="e.g. Clean Water Initiative"
                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                {...register("name")}
               />
+              <p>{errors.name?.message}</p>
             </div>
 
             <div className="flex gap-4 w-full">
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
-                  City/Town
+                  address (incl City/Town)
                 </label>
                 <input
                   type="text"
-                  placeholder="City, Country"
+                  placeholder="city"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("address")}
                 />
+                <p>{errors.address?.message}</p>
               </div>
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
@@ -92,7 +114,9 @@ type NgoDetails = {
                   type="text"
                   placeholder="City, Country"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("country")}
                 />
+                <p>{errors.country?.message}</p>
               </div>
             </div>
 
@@ -105,7 +129,9 @@ type NgoDetails = {
                   type="text"
                   placeholder="City, Country"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("registrationNumber")}
                 />
+                <p>{errors.registrationNumber?.message}</p>
               </div>
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
@@ -113,9 +139,11 @@ type NgoDetails = {
                 </label>
                 <input
                   type="text"
-                  placeholder="City, Country"
+                  placeholder="Sector"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("sector")}
                 />
+                <p>{errors.sector?.message}</p>
               </div>
             </div>
 
@@ -126,19 +154,23 @@ type NgoDetails = {
                 </label>
                 <input
                   type="text"
-                  placeholder="City, Country"
+                  placeholder="example@gmail.com"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("email")}
                 />
+                <p>{errors.email?.message}</p>
               </div>
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
                   PhoneNumber
                 </label>
                 <input
-                  type="text"
-                  placeholder="City, Country"
+                  type="number"
+                  placeholder="06745634512"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("phoneNumber")}
                 />
+                <p>{errors.phoneNumber?.message}</p>
               </div>
             </div>
 
@@ -150,7 +182,9 @@ type NgoDetails = {
                 rows={4}
                 placeholder="What is your organization’s mission?"
                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                {...register("description")}
               />
+              <p>{errors.description?.message}</p>
             </div>
 
             <button
@@ -163,8 +197,7 @@ type NgoDetails = {
         </div>
       </div>
     </div>
-    );
-  };
-  
-  export default UpdateNGO;
-  
+  );
+};
+
+export default UpdateNGO;
