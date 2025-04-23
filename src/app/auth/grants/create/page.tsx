@@ -78,7 +78,7 @@ const CreateGrant = () => {
             Create New Grant
           </h1>
 
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit(onSumbit)}>
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Title
@@ -87,7 +87,9 @@ const CreateGrant = () => {
                 type="text"
                 placeholder="e.g. Education Support Grant"
                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                {...register("title")}
               />
+              <p>{errors.title?.message}</p>
             </div>
 
             <div className="flex gap-4 w-full">
@@ -98,7 +100,9 @@ const CreateGrant = () => {
                 <input
                   type="number"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("amount")}
                 />
+                <p>{errors.amount?.message}</p>
               </div>
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
@@ -108,7 +112,9 @@ const CreateGrant = () => {
                   type="text"
                   placeholder="City, Country"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("provider")}
                 />
+                <p>{errors.provider?.message}</p>
               </div>
             </div>
 
@@ -120,7 +126,9 @@ const CreateGrant = () => {
                 <input
                   type="text"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("eligibility")}
                 />
+                <p>{errors.eligibility?.message}</p>
               </div>
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
@@ -130,7 +138,9 @@ const CreateGrant = () => {
                   type="text"
                   placeholder="City, Country"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("phoneNumber")}
                 />
+                <p>{errors.phoneNumber?.message}</p>
               </div>
             </div>
 
@@ -143,7 +153,9 @@ const CreateGrant = () => {
                   type="text"
                   placeholder="City, Country"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("email")}
                 />
+                <p>{errors.email?.message}</p>
               </div>
             </div>
 
@@ -155,7 +167,9 @@ const CreateGrant = () => {
                 rows={4}
                 placeholder="Briefly describe this grant opportunity"
                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                {...register("description")}
               />
+              <p>{errors.description?.message}</p>
             </div>
 
             <button
