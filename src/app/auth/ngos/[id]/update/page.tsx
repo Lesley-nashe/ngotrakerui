@@ -2,9 +2,13 @@
 
 import { GetNgoRequest, NgoType, UpdateNgoRequest } from "@/app/api/ngos/route";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+
+interface Props {
+  params: Promise<{ id: string }>;
+}
 
 type FormData = {
   name: string;
@@ -20,18 +24,8 @@ type FormData = {
   verified: boolean;
 };
 
-const intiNgo = {
-  name: "",
-  address: "",
-  country: "",
-  registrationNumber: "",
-  description: "",
-  sector: "",
-  contactEmail: "example@gmail.com",
-  contactPhone: "",
-} as NgoType;
-
-const UpdateNGO = () => {
+const UpdateNGO = ({ params }: Props) => {
+  const { id } = use(params);
   const schema = yup
     .object({
       name: yup.string().required(),
@@ -67,13 +61,11 @@ const UpdateNGO = () => {
     },
   });
 
-  const id = "a9be3955-1623-4453-9ccb-ca0fafeb2af3";
-  const [ngo, setNgo] = useState(intiNgo);
+  const [ngo, setNgo] = useState<NgoType>();
 
   useEffect(() => {
     async function getNgo() {
       const ngoFetch: NgoType = await GetNgoRequest(id);
-      if (!ngoFetch) console.log("Tadi, I have failed to fetch");
       setNgo(ngoFetch);
       reset({
         name: ngoFetch.name,

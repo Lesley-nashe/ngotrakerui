@@ -145,3 +145,22 @@ export const getGrantRequest = async (id: string) => {
     throw new Error(error);
   }
 };
+
+export const GetGrantsRequest = async () => {
+  try {
+    const grants = await fetch("http://localhost:5189/api/Grant/grants", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!grants.ok) {
+      throw new Error("Failed to fetch the grants");
+    }
+    const fetchedGrants = await grants.json();
+    return fetchedGrants;
+  } catch (error) {
+    return NextResponse.json(
+      { error, err: "Ngo creation failed" },
+      { status: 500 }
+    );
+  }
+};

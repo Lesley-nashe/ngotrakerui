@@ -1,65 +1,41 @@
+"use client";
+import { GetGrantsRequest } from "@/app/api/grants/route";
 import GrantCompoent from "@/components/grantComponent";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-type NgoDetails = {
-  name: string;
-  location: string;
-  mission: string;
+type GrantDetails = {
+  title: string;
+  provider: string;
+  description: string;
+  id: string;
 };
-
-const grants = [
-  {
-    name: "Green Africa",
-    location: "Kenya",
-    mission: "Promoting sustainable agriculture.",
-  },
-  {
-    name: "Future Girls",
-    location: "Zimbabwe",
-    mission: "Empowering young women through education.",
-  },
-  {
-    name: "Green Africa",
-    location: "Kenya",
-    mission: "Promoting sustainable agriculture.",
-  },
-  {
-    name: "Future Girls",
-    location: "Zimbabwe",
-    mission: "Empowering young women through education.",
-  },
-  {
-    name: "Green Africa",
-    location: "Kenya",
-    mission: "Promoting sustainable agriculture.",
-  },
-  {
-    name: "Future Girls",
-    location: "Zimbabwe",
-    mission: "Empowering young women through education.",
-  },
-] as NgoDetails[];
-
-const grantsFetch = async () => {
-  const grants = await fetch("http://localhost:5189/api/Grant/grants", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
-  if (!grants.ok) {
-    throw new Error("Failed to fetch the grants");
-  }
-  const fetchedGrants = await grants.json();
-  return fetchedGrants;
-};
-
-const fetchAndLog = async () => {
-  const data = await grantsFetch();
-  console.log(data);
-};
-
-fetchAndLog();
 
 const GrantListPage = () => {
+  const [grants, setGrants] = useState<GrantDetails[]>();
+  useEffect(() => {
+    async function fetchAndLog() {
+      const data = await GetGrantsRequest();
+      setGrants(
+        data.result.map(
+          (item: {
+            title: string;
+            provider: string;
+            description: string;
+            id: string;
+          }) => {
+            return {
+              title: item.title,
+              provider: item.provider,
+              description: item.description,
+              id: item.id,
+            } as GrantDetails;
+          }
+        )
+      );
+    }
+    fetchAndLog();
+  }, []);
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex justify-between py-3">
@@ -75,12 +51,12 @@ const GrantListPage = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {grants.map((grant, i) => (
-          <Link key={i} href={`grants/update`}>
+        {grants?.map((grant, i) => (
+          <Link key={i} href={`grants/${grant.id}/update`}>
             <GrantCompoent
-              name={grant.name}
-              location={grant.location}
-              mission={grant.mission}
+              title={grant.title}
+              provider={grant.provider}
+              description={grant.description}
               key={i}
             />
           </Link>

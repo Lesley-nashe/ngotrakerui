@@ -142,7 +142,7 @@ export const GetNgoRequest = async (id: string) => {
         website: "https://website.com",
         logoUrl: "https://logourl.com",
         verified: true,
-      } as NgoType ;
+      } as NgoType;
     };
 
     return await fetchNgo();
@@ -150,5 +150,26 @@ export const GetNgoRequest = async (id: string) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     throw new Error(error);
+  }
+};
+
+export const GetNgosRequest = async () => {
+  try {
+    const ngos = await fetch("http://localhost:5189/api/Ngo/ngos", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!ngos.ok) {
+      throw new Error("Failed to fetch NGOs");
+    }
+
+    const fetchedNgos = await ngos.json();
+    return fetchedNgos;
+  } catch (error) {
+    return NextResponse.json(
+      { error, err: "Ngo creation failed" },
+      { status: 500 }
+    );
   }
 };

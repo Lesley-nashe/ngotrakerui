@@ -21,20 +21,6 @@ type FormData = {
   phoneNumber: string;
 };
 
-const intiGrant = {
-  amount: 0,
-  contactPhone: "",
-  createdAt: "",
-  currency: "",
-  deadline: "",
-  description: "",
-  eligibility: "",
-  id: "",
-  provider: "",
-  status: "",
-  title: "",
-} as GrantType;
-
 const UpdateGrant = () => {
   const schema = yup
     .object({
@@ -69,7 +55,7 @@ const UpdateGrant = () => {
   });
 
   const id = "3fa85f64-5717-7001-b3fc-2c963f66afa1";
-  const [grant, setGrant] = useState(intiGrant);
+  const [grant, setGrant] = useState<GrantType>();
 
   useEffect(() => {
     async function getGrant() {
