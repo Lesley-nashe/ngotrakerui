@@ -126,7 +126,7 @@ export const getGrantRequest = async (id: string) => {
       );
 
       if (!grant.ok) {
-        throw new Error("Failed to fetch Grants");
+        throw new Error("Failed to fetch Grant");
       }
 
       const fetchedGrant = grant.json();

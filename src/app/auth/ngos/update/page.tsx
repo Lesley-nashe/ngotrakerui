@@ -1,6 +1,6 @@
 "use client";
 
-import { getNgoRequest, UpdateNgoRequest } from "@/app/api/ngos/route";
+import { GetNgoRequest, NgoType, UpdateNgoRequest } from "@/app/api/ngos/route";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -15,21 +15,23 @@ type FormData = {
   email: string;
   phoneNumber: string;
   sector: string;
+  website: string;
+  logoUrl: string;
+  verified: boolean;
 };
 
+const intiNgo = {
+  name: "",
+  address: "",
+  country: "",
+  registrationNumber: "",
+  description: "",
+  sector: "",
+  contactEmail: "example@gmail.com",
+  contactPhone: "",
+} as NgoType;
+
 const UpdateNGO = () => {
-  const id = "";
-  const [ngo, setNgo] = useState(null);
-
-  useEffect(() => {
-    async function getNgo() {
-      const ngoFetch = await getNgoRequest(id);
-      setNgo(ngoFetch);
-    }
-    getNgo();
-  }, []);
-
-  console.log(ngo);
   const schema = yup
     .object({
       name: yup.string().required(),
@@ -40,16 +42,54 @@ const UpdateNGO = () => {
       sector: yup.string().required(),
       email: yup.string().required(),
       phoneNumber: yup.string().required(),
+      website: yup.string().required(),
+      logoUrl: yup.string().required(),
+      verified: yup.boolean().required(),
     })
     .required();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      name: "",
+      address: "",
+      country: "",
+      registrationNumber: "",
+      description: "",
+      sector: "",
+      email: "example@gmail.com",
+      phoneNumber: "",
+    },
   });
+
+  const id = "a9be3955-1623-4453-9ccb-ca0fafeb2af3";
+  const [ngo, setNgo] = useState(intiNgo);
+
+  useEffect(() => {
+    async function getNgo() {
+      const ngoFetch: NgoType = await GetNgoRequest(id);
+      if (!ngoFetch) console.log("Tadi, I have failed to fetch");
+      setNgo(ngoFetch);
+      reset({
+        name: ngoFetch.name,
+        address: ngoFetch.address,
+        country: ngoFetch.country,
+        registrationNumber: ngoFetch.registrationNumber,
+        description: ngoFetch.description,
+        sector: ngoFetch.sector,
+        email: "example@gmail.com",
+        phoneNumber: ngoFetch.contactPhone,
+      });
+    }
+    getNgo();
+  }, [reset, id]);
+
+  console.log(ngo);
 
   const onSumbit = async (data: FormData) => {
     const {
@@ -67,8 +107,8 @@ const UpdateNGO = () => {
       address,
       country,
       registrationNumber,
-      email,
-      phoneNumber,
+      contactEmail: email,
+      contactPhone: phoneNumber,
       sector,
       description,
     });
@@ -185,6 +225,45 @@ const UpdateNGO = () => {
                 />
                 <p>{errors.phoneNumber?.message}</p>
               </div>
+            </div>
+
+            <div className="flex gap-4 w-full">
+              <div className=" w-full">
+                <label className="block text-sm font-medium text-gray-700">
+                  website
+                </label>
+                <input
+                  type="text"
+                  placeholder="City, Country"
+                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("website")}
+                />
+                <p>{errors.website?.message}</p>
+              </div>
+              <div className=" w-full">
+                <label className="block text-sm font-medium text-gray-700">
+                  logoUrl
+                </label>
+                <input
+                  type="text"
+                  placeholder="Sector"
+                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("logoUrl")}
+                />
+                <p>{errors.logoUrl?.message}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center mb-4">
+              <input
+                id="default-checkbox"
+                {...register("verified")}
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Verified
+              </label>
             </div>
 
             <div>

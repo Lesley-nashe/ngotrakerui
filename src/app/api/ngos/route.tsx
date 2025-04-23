@@ -6,8 +6,19 @@ type FormData = {
   country: string;
   registrationNumber: string;
   description: string;
-  email: string;
-  phoneNumber: string;
+  contactEmail: string;
+  contactPhone: string;
+  sector: string;
+};
+
+export type NgoType = {
+  name: string;
+  address: string;
+  country: string;
+  registrationNumber: string;
+  description: string;
+  contactEmail: string;
+  contactPhone: string;
   sector: string;
 };
 
@@ -18,8 +29,8 @@ export async function UpdateNgoRequest(Options: FormData) {
       address,
       country,
       registrationNumber,
-      email,
-      phoneNumber,
+      contactEmail,
+      contactPhone,
       sector,
       description,
     } = Options;
@@ -32,8 +43,8 @@ export async function UpdateNgoRequest(Options: FormData) {
         address,
         country,
         registrationNumber,
-        email,
-        phoneNumber,
+        contactEmail,
+        contactPhone,
         sector,
         description,
       }),
@@ -63,8 +74,8 @@ export async function CreateNgoRequest(Options: FormData) {
       address,
       country,
       registrationNumber,
-      email,
-      phoneNumber,
+      contactEmail,
+      contactPhone,
       sector,
       description,
     } = Options;
@@ -79,8 +90,8 @@ export async function CreateNgoRequest(Options: FormData) {
         sector,
         country,
         address,
-        contactEmail: email,
-        contactPhone: phoneNumber,
+        contactEmail,
+        contactPhone,
         website: "https://website.com",
         logoUrl: "https://logourl.com",
         verified: true,
@@ -104,7 +115,7 @@ export async function CreateNgoRequest(Options: FormData) {
   }
 }
 
-export const getNgoRequest = async (id: string) => {
+export const GetNgoRequest = async (id: string) => {
   try {
     const fetchNgo = async () => {
       const ngo = await fetch(`http://localhost:5189/api/Ngo/ngo?Id=${id}`, {
@@ -113,19 +124,28 @@ export const getNgoRequest = async (id: string) => {
       });
 
       if (!ngo.ok) {
-        throw new Error("Failed to fetch NGOs");
+        console.log("something went wrong");
+        throw new Error("Failed to fetch NGO");
       }
 
       const fetchedNgo = ngo.json();
-      return fetchedNgo;
+      const data = await fetchedNgo;
+      return {
+        name: data.result.name,
+        registrationNumber: data.result.registrationNumber,
+        description: data.result.description,
+        sector: data.result.sector,
+        country: data.result.country,
+        address: data.result.address,
+        contactEmail: data.result.contactEmail,
+        contactPhone: data.result.contactPhone,
+        website: "https://website.com",
+        logoUrl: "https://logourl.com",
+        verified: true,
+      } as NgoType ;
     };
 
-    const fetchAndLog = async () => {
-      const data = await fetchNgo();
-      return data;
-    };
-
-    return await fetchAndLog();
+    return await fetchNgo();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

@@ -89,8 +89,6 @@ const UpdateGrant = () => {
     getGrant();
   }, [reset, id]);
 
-  console.log(grant);
-
   const onSumbit = async (data: FormData) => {
     const {
       title,
@@ -130,7 +128,7 @@ const UpdateGrant = () => {
       <div className="flex items-center justify-center">
         <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-2xl">
           <h1 className="text-2xl font-bold text-gray-800 mb-6">
-            Create New Grant
+            Update Grant
           </h1>
           {grant && (
             <form className="space-y-5" onSubmit={handleSubmit(onSumbit)}>
@@ -142,6 +140,7 @@ const UpdateGrant = () => {
                   type="text"
                   placeholder="e.g. Education Support Grant"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  disabled={true}
                   {...register("title")}
                 />
                 <p>{errors.title?.message}</p>
@@ -155,6 +154,7 @@ const UpdateGrant = () => {
                   <input
                     type="number"
                     className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    disabled={true}
                     {...register("amount")}
                   />
                   <p>{errors.amount?.message}</p>
@@ -167,6 +167,7 @@ const UpdateGrant = () => {
                     type="text"
                     placeholder="City, Country"
                     className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    disabled={true}
                     {...register("provider")}
                   />
                   <p>{errors.provider?.message}</p>
@@ -181,6 +182,7 @@ const UpdateGrant = () => {
                   <input
                     type="text"
                     className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    disabled={true}
                     {...register("eligibility")}
                   />
                   <p>{errors.eligibility?.message}</p>
@@ -193,6 +195,7 @@ const UpdateGrant = () => {
                     type="text"
                     placeholder="City, Country"
                     className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    disabled={true}
                     {...register("phoneNumber")}
                   />
                   <p>{errors.phoneNumber?.message}</p>
@@ -208,6 +211,7 @@ const UpdateGrant = () => {
                     type="text"
                     placeholder="City, Country"
                     className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    disabled={true}
                     {...register("email")}
                   />
                   <p>{errors.email?.message}</p>
@@ -222,6 +226,7 @@ const UpdateGrant = () => {
                   rows={4}
                   placeholder="Briefly describe this grant opportunity"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  disabled={true}
                   {...register("description")}
                 />
                 <p>{errors.description?.message}</p>
@@ -231,7 +236,7 @@ const UpdateGrant = () => {
                 type="submit"
                 className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition"
               >
-                Publish Grant
+                Update Grant
               </button>
             </form>
           )}
