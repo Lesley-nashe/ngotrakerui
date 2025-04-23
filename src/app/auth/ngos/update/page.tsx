@@ -1,7 +1,8 @@
 "use client";
 
-import { UpdateNgoRequest } from "@/app/api/ngos/route";
+import { getNgoRequest, UpdateNgoRequest } from "@/app/api/ngos/route";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -17,6 +18,18 @@ type FormData = {
 };
 
 const UpdateNGO = () => {
+  const id = "";
+  const [ngo, setNgo] = useState(null);
+
+  useEffect(() => {
+    async function getNgo() {
+      const ngoFetch = await getNgoRequest(id);
+      setNgo(ngoFetch);
+    }
+    getNgo();
+  }, []);
+
+  console.log(ngo);
   const schema = yup
     .object({
       name: yup.string().required(),

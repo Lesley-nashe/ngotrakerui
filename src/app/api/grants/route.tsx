@@ -3,12 +3,26 @@ import { NextResponse } from "next/server";
 type FormData = {
   title: string;
   provider: string;
-  amount: string;
+  amount: number;
   currency: string;
   description: string;
   eligibility: string;
   email: string;
   phoneNumber: string;
+};
+
+export type GrantType = {
+  amount: number;
+  contactPhone: string;
+  createdAt: string;
+  currency: string;
+  deadline: string;
+  description: string;
+  eligibility: string;
+  id: string;
+  provider: string;
+  status: string;
+  title: string;
 };
 
 export async function UpdateGrantRequest(Options: FormData) {
@@ -121,7 +135,7 @@ export const getGrantRequest = async (id: string) => {
 
     const fetchAndLog = async () => {
       const data = await fetchGrant();
-      return data;
+      return data.result;
     };
 
     return await fetchAndLog();
