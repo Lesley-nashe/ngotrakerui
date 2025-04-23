@@ -6,9 +6,13 @@ import {
   UpdateGrantRequest,
 } from "@/app/api/grants/route";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+
+interface Props {
+  params: Promise<{ id: string }>;
+}
 
 type FormData = {
   title: string;
@@ -21,7 +25,8 @@ type FormData = {
   phoneNumber: string;
 };
 
-const UpdateGrant = () => {
+const UpdateGrant = ({ params }: Props) => {
+  const { id } = use(params);
   const schema = yup
     .object({
       title: yup.string().required(),
@@ -54,7 +59,6 @@ const UpdateGrant = () => {
     },
   });
 
-  const id = "3fa85f64-5717-7001-b3fc-2c963f66afa1";
   const [grant, setGrant] = useState<GrantType>();
 
   useEffect(() => {
@@ -76,25 +80,8 @@ const UpdateGrant = () => {
   }, [reset, id]);
 
   const onSumbit = async (data: FormData) => {
-    const {
-      title,
-      provider,
-      amount,
-      currency,
-      description,
-      eligibility,
-      email,
-      phoneNumber,
-    } = data;
     const result = await UpdateGrantRequest({
-      title,
-      provider,
-      amount,
-      currency,
-      description,
-      eligibility,
-      email,
-      phoneNumber,
+      ...data
     });
 
     if (!result) {

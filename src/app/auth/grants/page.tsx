@@ -18,17 +18,9 @@ const GrantListPage = () => {
       const data = await GetGrantsRequest();
       setGrants(
         data.result.map(
-          (item: {
-            title: string;
-            provider: string;
-            description: string;
-            id: string;
-          }) => {
+          (item: GrantDetails) => {
             return {
-              title: item.title,
-              provider: item.provider,
-              description: item.description,
-              id: item.id,
+              ...item,
             } as GrantDetails;
           }
         )

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 type NgoDetails = {
   name: string;
-  location: string;
+  country: string;
   mission: string;
   id: string;
 };
@@ -19,17 +19,9 @@ const NGOListPage = () => {
       const data = await GetNgosRequest();
       setNgos(
         data.result.map(
-          (item: {
-            name: string;
-            country: string;
-            mission: string;
-            id: string;
-          }) => {
+          (item: NgoDetails) => {
             return {
-              name: item.name,
-              location: item.country,
-              mission: item.mission,
-              id: item.id,
+              ...item
             } as NgoDetails;
           }
         )
@@ -56,7 +48,7 @@ const NGOListPage = () => {
           <Link key={i} href={`ngos/${ngo.id}/update`}>
             <NgoCompoent
               name={ngo.name}
-              location={ngo.location}
+              country={ngo.country}
               mission={ngo.mission}
               key={i}
             />
