@@ -12,7 +12,7 @@ type NgoDetails = {
   id: string;
 };
 
-const NGOListPage = () => {
+const NgoListPage = () => {
   const [ngos, setNgos] = useState<NgoDetails[]>();
   useEffect(() => {
     async function fetchAndAssign() {
@@ -59,4 +59,4 @@ const NGOListPage = () => {
   );
 };
 
-export default NGOListPage;
+export default NgoListPage;

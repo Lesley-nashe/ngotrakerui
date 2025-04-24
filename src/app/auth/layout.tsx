@@ -13,12 +13,13 @@ function AuthLayout({
   return (
     <html lang="en">
       <body>
-        <div className="min-h-screen flex bg-gray-50">
+        <div className="min-h-screen flex bg-gray-50 relative">
           {/* Sidebar */}
-
-          <Sidebar />
+          <div className="fixed top-0 left-0 h-screen w-64 bg-white border-r z-40">
+            <Sidebar />
+          </div>
           {/* Content */}
-          <div className="flex-1 flex flex-col">
+          <div className="ml-64 flex-1 flex flex-col">
             {/* Topbar */}
             <Navbar />
             {/* Page content */}
