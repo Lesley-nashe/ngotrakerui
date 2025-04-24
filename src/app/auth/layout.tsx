@@ -3,6 +3,7 @@
 import Navbar from "@/components/navheader";
 import "../globals.css";
 import Sidebar from "@/components/sidebar";
+import PageBack from "@/components/backbutton";
 
 function AuthLayout({
   children,
@@ -20,9 +21,11 @@ function AuthLayout({
           <div className="flex-1 flex flex-col">
             {/* Topbar */}
             <Navbar />
-
             {/* Page content */}
-            <main className="p-6">{children}</main>
+            <main className="flex-1 p-3">
+              <PageBack />
+              {children}
+            </main>
           </div>
         </div>
       </body>

@@ -1,4 +1,3 @@
-
 "use client";
 import "./globals.css";
 
@@ -11,8 +10,8 @@ function RootLayout({
     <html lang="en">
       <body>
         <div>
-            <main>{children}</main>
-          </div>
+          <main>{children}</main>
+        </div>
       </body>
     </html>
   );

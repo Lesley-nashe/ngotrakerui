@@ -14,10 +14,10 @@ const Dashboard = async () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <div>
+      {/* <div>
         <h1>Welcome, {session.user.firstName}!</h1>
         <p>Email: {session.user.email}</p>
-      </div>
+      </div> */}
       <h1 className="text-3xl font-bold mb-6 text-gray-800">NGO Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
         {stats.map((stat) => (

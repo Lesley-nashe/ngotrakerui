@@ -11,8 +11,8 @@ type FormData = {
   country: string;
   registrationNumber: string;
   description: string;
-  email: string;
-  phoneNumber: string;
+  contactEmail: string;
+  contactPhone: string;
   sector: string;
 };
 
@@ -25,8 +25,8 @@ const CreateNGO = () => {
       registrationNumber: yup.string().required(),
       description: yup.string().required(),
       sector: yup.string().required(),
-      email: yup.string().required(),
-      phoneNumber: yup.string().required(),
+      contactEmail: yup.string().required(),
+      contactPhone: yup.string().required(),
     })
     .required();
 
@@ -39,25 +39,8 @@ const CreateNGO = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    const {
-      name,
-      address,
-      country,
-      registrationNumber,
-      email,
-      phoneNumber,
-      sector,
-      description,
-    } = data;
     const result = await CreateNgoRequest({
-      name,
-      address,
-      country,
-      registrationNumber,
-      email,
-      phoneNumber,
-      sector,
-      description,
+      ...data,
     });
 
     if (!result) {
@@ -97,7 +80,7 @@ const CreateNGO = () => {
             <div className="flex gap-4 w-full">
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
-                address (incl City/Town)
+                  address (incl City/Town)
                 </label>
                 <input
                   type="text"
@@ -157,9 +140,9 @@ const CreateNGO = () => {
                   type="text"
                   placeholder="example@gmail.com"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                  {...register("email")}
+                  {...register("contactEmail")}
                 />
-                <p>{errors.email?.message}</p>
+                <p>{errors.contactEmail?.message}</p>
               </div>
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
@@ -169,9 +152,9 @@ const CreateNGO = () => {
                   type="number"
                   placeholder="06745634512"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                  {...register("phoneNumber")}
+                  {...register("contactPhone")}
                 />
-                <p>{errors.phoneNumber?.message}</p>
+                <p>{errors.contactPhone?.message}</p>
               </div>
             </div>
 
