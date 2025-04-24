@@ -1,14 +1,9 @@
 "use client";
 
 import { fetchApplications } from "@/app/api/application/route";
+import { ApplicationsType } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
-type ApplicationsType = {
-  ngo: string;
-  grant: string;
-  status: string;
-  date: string;
-};
 
 const columns = ["ngo", "grant", "status", "date"];
 

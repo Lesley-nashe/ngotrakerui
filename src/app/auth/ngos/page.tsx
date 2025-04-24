@@ -2,15 +2,9 @@
 
 import { GetNgosRequest } from "@/app/api/ngos/route";
 import NgoCompoent from "@/components/ngoComponent";
+import { NgoDetails } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-type NgoDetails = {
-  name: string;
-  country: string;
-  mission: string;
-  id: string;
-};
 
 const NgoListPage = () => {
   const [ngos, setNgos] = useState<NgoDetails[]>();

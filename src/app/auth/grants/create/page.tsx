@@ -1,26 +1,17 @@
 "use client";
 
 import { CreateGrantRequest } from "@/app/api/grants/route";
+import { GrantFormData } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-type FormData = {
-  title: string;
-  provider: string;
-  amount: string;
-  currency: string;
-  description: string;
-  eligibility: string;
-  email: string;
-  phoneNumber: string;
-};
 const CreateGrant = () => {
   const schema = yup
       .object({
         title: yup.string().required(),
         provider: yup.string().required(),
-        amount: yup.string().required(),
+        amount: yup.number().required(),
         currency: yup.string().required(),
         description: yup.string().required(),
         eligibility: yup.string().required(),
@@ -37,7 +28,7 @@ const CreateGrant = () => {
       resolver: yupResolver(schema),
     });
 
-     const onSumbit = async (data: FormData) => {
+     const onSumbit = async (data: GrantFormData) => {
         const {
           title,
           provider,

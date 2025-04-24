@@ -2,9 +2,9 @@
 
 import {
   getGrantRequest,
-  GrantType,
   UpdateGrantRequest,
 } from "@/app/api/grants/route";
+import { GrantFormData, GrantType } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { use, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,16 +14,6 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
-type FormData = {
-  title: string;
-  provider: string;
-  amount: number;
-  currency: string;
-  description: string;
-  eligibility: string;
-  email: string;
-  phoneNumber: string;
-};
 
 const UpdateGrant = ({ params }: Props) => {
   const { id } = use(params);
@@ -79,7 +69,7 @@ const UpdateGrant = ({ params }: Props) => {
     getGrant();
   }, [reset, id]);
 
-  const onSumbit = async (data: FormData) => {
+  const onSumbit = async (data: GrantFormData) => {
     const result = await UpdateGrantRequest({
       ...data
     });

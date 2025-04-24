@@ -1,20 +1,10 @@
 "use client";
 
 import { CreateNgoRequest } from "@/app/api/ngos/route";
+import { NgoFormData } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-
-type FormData = {
-  name: string;
-  address: string;
-  country: string;
-  registrationNumber: string;
-  description: string;
-  contactEmail: string;
-  contactPhone: string;
-  sector: string;
-};
 
 const CreateNGO = () => {
   const schema = yup
@@ -38,7 +28,7 @@ const CreateNGO = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: NgoFormData) => {
     const result = await CreateNgoRequest({
       ...data,
     });

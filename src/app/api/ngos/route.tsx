@@ -1,29 +1,8 @@
-import { apiUrl } from "@/lib/utils";
+import { apiUrl, NgoFormData, NgoType } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-type FormData = {
-  name: string;
-  address: string;
-  country: string;
-  registrationNumber: string;
-  description: string;
-  contactEmail: string;
-  contactPhone: string;
-  sector: string;
-};
 
-export type NgoType = {
-  name: string;
-  address: string;
-  country: string;
-  registrationNumber: string;
-  description: string;
-  contactEmail: string;
-  contactPhone: string;
-  sector: string;
-};
-
-export async function UpdateNgoRequest(Options: FormData) {
+export async function UpdateNgoRequest(Options: NgoFormData) {
   try {
     const {
       name,
@@ -68,7 +47,7 @@ export async function UpdateNgoRequest(Options: FormData) {
   }
 }
 
-export async function CreateNgoRequest(Options: FormData) {
+export async function CreateNgoRequest(Options: NgoFormData) {
   try {
     const {
       name,

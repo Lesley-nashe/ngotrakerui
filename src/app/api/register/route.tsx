@@ -1,13 +1,5 @@
-import { apiUrl } from "@/lib/utils";
+import { apiUrl, RegistrationOption } from "@/lib/utils";
 import { NextResponse } from "next/server";
-
-type RegistrationOption = {
-    firstName: string, 
-    secondName: string, 
-    role: string, 
-    email:string, 
-    password: string 
-}
 
 export default async function Registration(Options: RegistrationOption) {
   try {

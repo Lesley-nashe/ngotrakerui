@@ -1,6 +1,7 @@
 "use client";
 
-import { GetNgoRequest, NgoType, UpdateNgoRequest } from "@/app/api/ngos/route";
+import { GetNgoRequest, UpdateNgoRequest } from "@/app/api/ngos/route";
+import { NgoFormData, NgoType } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { use, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -9,20 +10,6 @@ import * as yup from "yup";
 interface Props {
   params: Promise<{ id: string }>;
 }
-
-type FormData = {
-  name: string;
-  address: string;
-  country: string;
-  registrationNumber: string;
-  description: string;
-  contactEmail: string;
-  contactPhone: string;
-  sector: string;
-  website: string;
-  logoUrl: string;
-  verified: boolean;
-};
 
 const UpdateNGO = ({ params }: Props) => {
   const { id } = use(params);
@@ -71,7 +58,7 @@ const UpdateNGO = ({ params }: Props) => {
     getNgo();
   }, [reset, id]);
 
-  const onSumbit = async (data: FormData) => {
+  const onSumbit = async (data: NgoFormData) => {
     try {
       const result = await UpdateNgoRequest({
         ...data,

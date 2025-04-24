@@ -1,32 +1,7 @@
-import { apiUrl } from "@/lib/utils";
+import { apiUrl, GrantFormData } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-type FormData = {
-  title: string;
-  provider: string;
-  amount: number;
-  currency: string;
-  description: string;
-  eligibility: string;
-  email: string;
-  phoneNumber: string;
-};
-
-export type GrantType = {
-  amount: number;
-  contactPhone: string;
-  createdAt: string;
-  currency: string;
-  deadline: string;
-  description: string;
-  eligibility: string;
-  id: string;
-  provider: string;
-  status: string;
-  title: string;
-};
-
-export async function UpdateGrantRequest(Options: FormData) {
+export async function UpdateGrantRequest(Options: GrantFormData) {
   try {
     const {
       title,
@@ -71,7 +46,7 @@ export async function UpdateGrantRequest(Options: FormData) {
   }
 }
 
-export async function CreateGrantRequest(Options: FormData) {
+export async function CreateGrantRequest(Options: GrantFormData) {
   try {
     const {
       title,

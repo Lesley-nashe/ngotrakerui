@@ -1,15 +1,9 @@
 "use client";
 import { GetGrantsRequest } from "@/app/api/grants/route";
 import GrantCompoent from "@/components/grantComponent";
+import { GrantDetails } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-type GrantDetails = {
-  title: string;
-  provider: string;
-  description: string;
-  id: string;
-};
 
 const GrantListPage = () => {
   const [grants, setGrants] = useState<GrantDetails[]>();
