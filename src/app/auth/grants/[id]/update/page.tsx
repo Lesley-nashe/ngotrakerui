@@ -4,31 +4,17 @@ import {
   getGrantRequest,
   UpdateGrantRequest,
 } from "@/app/api/grants/route";
-import { GrantFormData, GrantType } from "@/lib/utils";
+import { GrantFormData, grantSchema, GrantType } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { use, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
-
 const UpdateGrant = ({ params }: Props) => {
   const { id } = use(params);
-  const schema = yup
-    .object({
-      title: yup.string().required(),
-      provider: yup.string().required(),
-      amount: yup.number().required(),
-      currency: yup.string().required(),
-      description: yup.string().required(),
-      eligibility: yup.string().required(),
-      email: yup.string().required(),
-      phoneNumber: yup.string().required(),
-    })
-    .required();
 
   const {
     register,
@@ -36,7 +22,7 @@ const UpdateGrant = ({ params }: Props) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(grantSchema),
     defaultValues: {
       title: "",
       provider: "",

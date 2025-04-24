@@ -1,31 +1,19 @@
 "use client";
 
 import { CreateNgoRequest } from "@/app/api/ngos/route";
-import { NgoFormData } from "@/lib/utils";
+import { NgoFormData, ngoSchema } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 
 const CreateNGO = () => {
-  const schema = yup
-    .object({
-      name: yup.string().required(),
-      address: yup.string().required(),
-      country: yup.string().required(),
-      registrationNumber: yup.string().required(),
-      description: yup.string().required(),
-      sector: yup.string().required(),
-      contactEmail: yup.string().required(),
-      contactPhone: yup.string().required(),
-    })
-    .required();
+ 
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(ngoSchema),
   });
 
   const onSubmit = async (data: NgoFormData) => {
@@ -146,6 +134,45 @@ const CreateNGO = () => {
                 />
                 <p>{errors.contactPhone?.message}</p>
               </div>
+            </div>
+
+            <div className="flex gap-4 w-full">
+              <div className=" w-full">
+                <label className="block text-sm font-medium text-gray-700">
+                  website
+                </label>
+                <input
+                  type="text"
+                  placeholder="City, Country"
+                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("website")}
+                />
+                <p>{errors.website?.message}</p>
+              </div>
+              <div className=" w-full">
+                <label className="block text-sm font-medium text-gray-700">
+                  logoUrl
+                </label>
+                <input
+                  type="text"
+                  placeholder="Sector"
+                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("logoUrl")}
+                />
+                <p>{errors.logoUrl?.message}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center mb-4">
+              <input
+                id="default-checkbox"
+                {...register("verified")}
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Verified
+              </label>
             </div>
 
             <div>

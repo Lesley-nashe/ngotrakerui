@@ -3,29 +3,19 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormInput from "../../../components/form/Input";
 import { useForm } from "react-hook-form";
-import * as yup from "yup"
 import { signIn } from "next-auth/react";
-
-type FormData = {
-  email: string,
-  password: string
-}
+import { LoginFormData, loginSchema } from "@/lib/utils";
 
 const LoginPage = () => {
-  const schema = yup.object({
-    email: yup.string().required(),
-    password: yup.string().required()
-  }).required()
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
   });
   
-  const onSumbit = async(data: FormData) => 
+  const onSumbit = async(data: LoginFormData) => 
     {
       const result = await signIn('credentials',{
         callbackUrl: "/auth/dashboard",

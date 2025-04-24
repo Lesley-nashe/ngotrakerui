@@ -1,11 +1,10 @@
 "use client";
 
 import { GetNgoRequest, UpdateNgoRequest } from "@/app/api/ngos/route";
-import { NgoFormData, NgoType } from "@/lib/utils";
+import { NgoFormData, ngoSchema, NgoType } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { use, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -13,21 +12,6 @@ interface Props {
 
 const UpdateNGO = ({ params }: Props) => {
   const { id } = use(params);
-  const schema = yup
-    .object({
-      name: yup.string().required(),
-      address: yup.string().required(),
-      country: yup.string().required(),
-      registrationNumber: yup.string().required(),
-      description: yup.string().required(),
-      sector: yup.string().required(),
-      contactEmail: yup.string().required(),
-      contactPhone: yup.string().required(),
-      website: yup.string().required(),
-      logoUrl: yup.string().required(),
-      verified: yup.boolean().required(),
-    })
-    .required();
 
   const {
     register,
@@ -35,7 +19,7 @@ const UpdateNGO = ({ params }: Props) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(ngoSchema),
     defaultValues: {
       name: "",
       address: "",

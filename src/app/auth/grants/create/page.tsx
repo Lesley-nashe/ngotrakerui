@@ -1,61 +1,30 @@
 "use client";
 
 import { CreateGrantRequest } from "@/app/api/grants/route";
-import { GrantFormData } from "@/lib/utils";
+import { GrantFormData, grantSchema } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 
 const CreateGrant = () => {
-  const schema = yup
-      .object({
-        title: yup.string().required(),
-        provider: yup.string().required(),
-        amount: yup.number().required(),
-        currency: yup.string().required(),
-        description: yup.string().required(),
-        eligibility: yup.string().required(),
-        email: yup.string().required(),
-        phoneNumber: yup.string().required(),
-      })
-      .required();
-  
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm({
-      resolver: yupResolver(schema),
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(grantSchema),
+  });
+
+  const onSumbit = async (data: GrantFormData) => {
+    const result = await CreateGrantRequest({
+      ...data
     });
 
-     const onSumbit = async (data: GrantFormData) => {
-        const {
-          title,
-          provider,
-          amount,
-          currency,
-          description,
-          eligibility,
-          email,
-          phoneNumber,
-        } = data;
-        const result = await CreateGrantRequest({
-          title,
-          provider,
-          amount,
-          currency,
-          description,
-          eligibility,
-          email,
-          phoneNumber,
-        });
-    
-        if (!result) {
-          console.log(result);
-        } else {
-          console.log("Rgistered!", result);
-        }
-      };
+    if (!result) {
+      console.log(result);
+    } else {
+      console.log("Rgistered!", result);
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-50 p-6 col-1">
       <div>

@@ -2,36 +2,18 @@
 
 import FormInput from "@/components/form/Input";
 import { useForm } from "react-hook-form";
-import * as yup from "yup"
 import React from "react";
 import Registration from "@/app/api/register/route";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-type RegistrationFormData = {
-  firstName: string, 
-  secondName: string, 
-  role: string, 
-  email:string, 
-  password: string,
-  confirmPassword: string, 
-}
+import { RegistrationFormData, signUpSchema } from "@/lib/utils";
 
 const SignUpPage = () => {
-  const schema = yup.object({
-    firstName: yup.string().required(),
-    secondName: yup.string().required(),
-    role: yup.string().required(),
-    email: yup.string().required(),
-    password: yup.string().required(),
-    confirmPassword: yup.string().required(),
-  }).required()
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegistrationFormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(signUpSchema),
   });
 
    const onSumbit = async(data: RegistrationFormData) => 
