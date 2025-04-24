@@ -14,7 +14,7 @@ type GrantDetails = {
 const GrantListPage = () => {
   const [grants, setGrants] = useState<GrantDetails[]>();
   useEffect(() => {
-    async function fetchAndLog() {
+    async function fetchAndAssign() {
       const data = await GetGrantsRequest();
       setGrants(
         data.result.map(
@@ -26,7 +26,7 @@ const GrantListPage = () => {
         )
       );
     }
-    fetchAndLog();
+    fetchAndAssign();
   }, []);
   return (
     <div className="p-6 max-w-7xl mx-auto">

@@ -15,7 +15,7 @@ type NgoDetails = {
 const NGOListPage = () => {
   const [ngos, setNgos] = useState<NgoDetails[]>();
   useEffect(() => {
-    async function fetchAndLog() {
+    async function fetchAndAssign() {
       const data = await GetNgosRequest();
       setNgos(
         data.result.map(
@@ -27,7 +27,7 @@ const NGOListPage = () => {
         )
       );
     }
-    fetchAndLog();
+    fetchAndAssign();
   }, []);
   return (
     <div className="p-6 max-w-7xl mx-auto">

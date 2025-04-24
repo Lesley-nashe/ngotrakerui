@@ -2,7 +2,7 @@
 
 import { GetNgoRequest, NgoType, UpdateNgoRequest } from "@/app/api/ngos/route";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { use, useEffect, useState } from "react";
+import { use, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -16,8 +16,8 @@ type FormData = {
   country: string;
   registrationNumber: string;
   description: string;
-  email: string;
-  phoneNumber: string;
+  contactEmail: string;
+  contactPhone: string;
   sector: string;
   website: string;
   logoUrl: string;
@@ -34,8 +34,8 @@ const UpdateNGO = ({ params }: Props) => {
       registrationNumber: yup.string().required(),
       description: yup.string().required(),
       sector: yup.string().required(),
-      email: yup.string().required(),
-      phoneNumber: yup.string().required(),
+      contactEmail: yup.string().required(),
+      contactPhone: yup.string().required(),
       website: yup.string().required(),
       logoUrl: yup.string().required(),
       verified: yup.boolean().required(),
@@ -56,59 +56,35 @@ const UpdateNGO = ({ params }: Props) => {
       registrationNumber: "",
       description: "",
       sector: "",
-      email: "example@gmail.com",
-      phoneNumber: "",
+      contactEmail: "example@gmail.com",
+      contactPhone: "",
     },
   });
-
-  const [ngo, setNgo] = useState<NgoType>();
 
   useEffect(() => {
     async function getNgo() {
       const ngoFetch: NgoType = await GetNgoRequest(id);
-      setNgo(ngoFetch);
       reset({
-        name: ngoFetch.name,
-        address: ngoFetch.address,
-        country: ngoFetch.country,
-        registrationNumber: ngoFetch.registrationNumber,
-        description: ngoFetch.description,
-        sector: ngoFetch.sector,
-        email: "example@gmail.com",
-        phoneNumber: ngoFetch.contactPhone,
+        ...ngoFetch,
       });
     }
     getNgo();
   }, [reset, id]);
 
-  console.log(ngo);
-
   const onSumbit = async (data: FormData) => {
-    const {
-      name,
-      address,
-      country,
-      registrationNumber,
-      email,
-      phoneNumber,
-      sector,
-      description,
-    } = data;
-    const result = await UpdateNgoRequest({
-      name,
-      address,
-      country,
-      registrationNumber,
-      contactEmail: email,
-      contactPhone: phoneNumber,
-      sector,
-      description,
-    });
+    try {
+      const result = await UpdateNgoRequest({
+        ...data,
+      });
 
-    if (!result) {
-      console.log(result);
-    } else {
-      console.log("Rgistered!", result);
+      if (!result) {
+        console.log(result);
+      } else {
+        console.log("Rgistered!", result);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      throw new Error(error);
     }
   };
   return (
@@ -201,9 +177,9 @@ const UpdateNGO = ({ params }: Props) => {
                   type="text"
                   placeholder="example@gmail.com"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                  {...register("email")}
+                  {...register("contactEmail")}
                 />
-                <p>{errors.email?.message}</p>
+                <p>{errors.contactEmail?.message}</p>
               </div>
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
@@ -213,9 +189,9 @@ const UpdateNGO = ({ params }: Props) => {
                   type="number"
                   placeholder="06745634512"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                  {...register("phoneNumber")}
+                  {...register("contactPhone")}
                 />
-                <p>{errors.phoneNumber?.message}</p>
+                <p>{errors.contactPhone?.message}</p>
               </div>
             </div>
 
