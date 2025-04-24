@@ -1,9 +1,10 @@
+import { apiUrl } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export const fetchApplications = async () => {
   try {
     const applicationsfetch = await fetch(
-      "http://localhost:5189/api/Application/applications",
+      `${apiUrl}/Application/applications`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },

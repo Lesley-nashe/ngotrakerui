@@ -1,3 +1,4 @@
+import { apiUrl } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 type FormData = {
@@ -38,7 +39,7 @@ export async function UpdateGrantRequest(Options: FormData) {
       phoneNumber,
     } = Options;
 
-    const res = await fetch("http://localhost:5189/api/Grant/grant", {
+    const res = await fetch(`${apiUrl}/Grant/grant`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -82,7 +83,7 @@ export async function CreateGrantRequest(Options: FormData) {
       phoneNumber,
     } = Options;
 
-    const res = await fetch("http://localhost:5189/api/Grant/grant", {
+    const res = await fetch(`${apiUrl}/Grant/grant`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -118,7 +119,7 @@ export const getGrantRequest = async (id: string) => {
   try {
     const fetchGrant = async () => {
       const grant = await fetch(
-        `http://localhost:5189/api/Grant/grant?Id=${id}`,
+        `${apiUrl}/Grant/grant?Id=${id}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -148,10 +149,13 @@ export const getGrantRequest = async (id: string) => {
 
 export const GetGrantsRequest = async () => {
   try {
-    const grants = await fetch("http://localhost:5189/api/Grant/grants", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
+    const grants = await fetch(
+      `${apiUrl}/Grant/grants`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     if (!grants.ok) {
       throw new Error("Failed to fetch the grants");
     }

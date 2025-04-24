@@ -1,3 +1,4 @@
+import { apiUrl } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 type FormData = {
@@ -35,7 +36,7 @@ export async function UpdateNgoRequest(Options: FormData) {
       description,
     } = Options;
 
-    const res = await fetch("http://localhost:5189/api/Ngo/ngo", {
+    const res = await fetch(`${apiUrl}/Ngo/ngo`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -80,7 +81,7 @@ export async function CreateNgoRequest(Options: FormData) {
       description,
     } = Options;
 
-    const res = await fetch("http://localhost:5189/api/Ngo/ngo", {
+    const res = await fetch(`${apiUrl}/Ngo/ngo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -118,7 +119,7 @@ export async function CreateNgoRequest(Options: FormData) {
 export const GetNgoRequest = async (id: string) => {
   try {
     const fetchNgo = async () => {
-      const ngo = await fetch(`http://localhost:5189/api/Ngo/ngo?Id=${id}`, {
+      const ngo = await fetch(`${apiUrl}/Ngo/ngo?Id=${id}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -155,7 +156,7 @@ export const GetNgoRequest = async (id: string) => {
 
 export const GetNgosRequest = async () => {
   try {
-    const ngos = await fetch("http://localhost:5189/api/Ngo/ngos", {
+    const ngos = await fetch(`${apiUrl}/Ngo/ngos`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });

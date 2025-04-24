@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { apiUrl } from "./utils";
 // Your own logic for dealing with plaintext password strings; be careful!
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -17,19 +18,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           const { email, password } = credentials;
 
-          const userRequest = await fetch(
-            "http://localhost:5189/api/auth/user",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                email: email,
-                password: password,
-              }),
-            }
-          );
+          const userRequest = await fetch(`${apiUrl}/auth/user`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: email,
+              password: password,
+            }),
+          });
 
-          const request = await fetch("http://localhost:5189/api/auth/login", {
+          const request = await fetch(`${apiUrl}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
