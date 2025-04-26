@@ -1,145 +1,40 @@
 import { apiUrl, GrantFormData } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-export async function UpdateGrantRequest(Options: GrantFormData) {
+export async function GET() {
   try {
-    const {
-      title,
-      provider,
-      amount,
-      currency,
-      description,
-      eligibility,
-      email,
-      phoneNumber,
-    } = Options;
-
-    const res = await fetch(`${apiUrl}/Grant/grant`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title,
-        provider,
-        amount,
-        currency,
-        description,
-        eligibility,
-        email,
-        phoneNumber,
-      }),
-    });
-
+    const res = await fetch(`${apiUrl}/Grant/grants`);
     if (!res.ok) {
-      const errorData = await res.json();
-      return NextResponse.json(
-        { error: errorData.message },
-        { status: res.status }
-      );
+      throw new Error("Failed to fetch the grants");
     }
-
-    return NextResponse.json({ message: "Grant updated successfully" });
+    const data = await res.json();
+    return NextResponse.json({ result: data.result });
   } catch (error) {
+    console.error("Server error:", error);
     return NextResponse.json(
-      { error, err: "Grant updated failed" },
+      { error: true, message: "Internal Server Error" },
       { status: 500 }
     );
   }
 }
 
-export async function CreateGrantRequest(Options: GrantFormData) {
+export async function POST(Options: GrantFormData) {
   try {
-    const {
-      title,
-      provider,
-      amount,
-      currency,
-      description,
-      eligibility,
-      phoneNumber,
-    } = Options;
-
     const res = await fetch(`${apiUrl}/Grant/grant`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        title,
-        provider,
-        amount,
-        currency,
-        description,
-        eligibility,
-        status,
-        phoneNumber,
+        ...Options,
       }),
     });
-
     if (!res.ok) {
       const errorData = await res.json();
-      return NextResponse.json(
-        { error: errorData.message },
-        { status: res.status }
-      );
+      throw new Error(errorData.message);
     }
 
     return NextResponse.json({ message: "Grant created successfully" });
-  } catch (error) {
-    return NextResponse.json(
-      { error, err: "Grant creation failed" },
-      { status: 500 }
-    );
-  }
-}
-
-export const getGrantRequest = async (id: string) => {
-  try {
-    const fetchGrant = async () => {
-      const grant = await fetch(
-        `${apiUrl}/Grant/grant?Id=${id}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (!grant.ok) {
-        throw new Error("Failed to fetch Grant");
-      }
-
-      const fetchedGrant = grant.json();
-      return fetchedGrant;
-    };
-
-    const fetchAndLog = async () => {
-      const data = await fetchGrant();
-      return data.result;
-    };
-
-    return await fetchAndLog();
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     throw new Error(error);
   }
-};
-
-export const GetGrantsRequest = async () => {
-  try {
-    const grants = await fetch(
-      `${apiUrl}/Grant/grants`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    if (!grants.ok) {
-      throw new Error("Failed to fetch the grants");
-    }
-    const fetchedGrants = await grants.json();
-    return fetchedGrants;
-  } catch (error) {
-    return NextResponse.json(
-      { error, err: "Ngo creation failed" },
-      { status: 500 }
-    );
-  }
-};
+}

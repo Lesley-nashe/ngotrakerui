@@ -1,25 +1,17 @@
 "use client";
 
-import { GetNgosRequest } from "@/app/api/ngos/route";
 import NgoCompoent from "@/components/ngoComponent";
-import { NgoDetails } from "@/lib/utils";
+import { fetchNgosClient } from "@/lib/ngos/fetchNgosClient";
+import { NgoType } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NgoListPage = () => {
-  const [ngos, setNgos] = useState<NgoDetails[]>();
+  const [ngos, setNgos] = useState<NgoType[]>();
   useEffect(() => {
     async function fetchAndAssign() {
-      const data = await GetNgosRequest();
-      setNgos(
-        data.result.map(
-          (item: NgoDetails) => {
-            return {
-              ...item
-            } as NgoDetails;
-          }
-        )
-      );
+      const data = await fetchNgosClient();
+      setNgos(data);
     }
     fetchAndAssign();
   }, []);
@@ -43,7 +35,7 @@ const NgoListPage = () => {
             <NgoCompoent
               name={ngo.name}
               country={ngo.country}
-              mission={ngo.mission}
+              mission={ngo.description}
               key={i}
             />
           </Link>

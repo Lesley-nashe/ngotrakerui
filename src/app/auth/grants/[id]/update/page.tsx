@@ -1,9 +1,9 @@
 "use client";
 
 import {
-  getGrantRequest,
-  UpdateGrantRequest,
-} from "@/app/api/grants/route";
+  fetchGrantClient,
+  UpdateGrantClient,
+} from "@/lib/grants/fetchGrantsClient";
 import { GrantFormData, grantSchema, GrantType } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { use, useEffect, useState } from "react";
@@ -39,7 +39,7 @@ const UpdateGrant = ({ params }: Props) => {
 
   useEffect(() => {
     async function getGrant() {
-      const grantfetch: GrantType = await getGrantRequest(id);
+      const grantfetch: GrantType = await fetchGrantClient(id);
       setGrant(grantfetch);
       reset({
         title: grantfetch.title,
@@ -56,9 +56,7 @@ const UpdateGrant = ({ params }: Props) => {
   }, [reset, id]);
 
   const onSumbit = async (data: GrantFormData) => {
-    const result = await UpdateGrantRequest({
-      ...data
-    });
+    const result = await UpdateGrantClient(id, { ...data });
 
     if (!result) {
       console.log(result);

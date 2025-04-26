@@ -21,6 +21,7 @@ export type NgoFormData = {
 };
 
 export type NgoType = {
+  id: string
   name: string;
   address: string;
   country: string;

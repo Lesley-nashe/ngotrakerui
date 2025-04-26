@@ -1,11 +1,12 @@
 import { auth } from "@/lib/auth";
+import Link from "next/link";
 
 const Dashboard = async () => {
   const session = await auth();
   const stats = [
-    { label: "Total NGOs", value: 128 },
-    { label: "Active Grants", value: 42 },
-    { label: "Applications", value: 311 },
+    { label: "Total NGOs", value: 128, path: "/auth/ngos" },
+    { label: "Active Grants", value: 42, path: "/auth/grants" },
+    { label: "Applications", value: 311, path: "/auth/applications" },
   ];
 
   if (!session?.user) {
@@ -20,16 +21,18 @@ const Dashboard = async () => {
       </div> */}
       <h1 className="text-3xl font-bold mb-6 text-gray-800">NGO Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        {stats.map((stat) => (
-          <div
-            key={stat.label}
-            className="bg-white shadow-md rounded-2xl p-6 border border-gray-100"
-          >
-            <p className="text-sm text-gray-500">{stat.label}</p>
-            <p className="text-2xl font-semibold text-indigo-600 mt-1">
-              {stat.value}
-            </p>
-          </div>
+        {stats.map((stat, i) => (
+          <Link key={i} href={stat.path}>
+            <div
+              key={stat.label}
+              className="bg-white shadow-md rounded-2xl p-6 border border-gray-100"
+            >
+              <p className="text-sm text-gray-500">{stat.label}</p>
+              <p className="text-2xl font-semibold text-indigo-600 mt-1">
+                {stat.value}
+              </p>
+            </div>
+          </Link>
         ))}
       </div>
 

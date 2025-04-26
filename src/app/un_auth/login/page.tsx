@@ -5,6 +5,7 @@ import FormInput from "../../../components/form/Input";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { LoginFormData, loginSchema } from "@/lib/utils";
+import Link from "next/link";
 
 const LoginPage = () => {
   const {
@@ -14,22 +15,21 @@ const LoginPage = () => {
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  
-  const onSumbit = async(data: LoginFormData) => 
-    {
-      const result = await signIn('credentials',{
-        callbackUrl: "/auth/dashboard",
-        redirect: true,
-        email: data.email,
-        password: data.password,
-      })
 
-      if(result?.error){
-        console.log(result.error)
-      } else{
-        console.log('Logged In !', result)
-      }
+  const onSumbit = async (data: LoginFormData) => {
+    const result = await signIn("credentials", {
+      callbackUrl: "/auth/dashboard",
+      redirect: true,
+      email: data.email,
+      password: data.password,
+    });
+
+    if (result?.error) {
+      console.log(result.error);
+    } else {
+      console.log("Logged In !", result);
     }
+  };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
@@ -43,7 +43,6 @@ const LoginPage = () => {
           <div className="mb-6">
             <FormInput title={"Password:"} {...register("password")} />
             <p>{errors.password?.message}</p>
-
           </div>
 
           <button
@@ -54,12 +53,18 @@ const LoginPage = () => {
           </button>
         </form>
         <div className="flex flex-now justify-between w-full mt-6">
-          <button className="w-3/8 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
-            forgot password
-          </button>
-          <button className="w-3/8 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
-            Sign Up
-          </button>
+          <div className="flex w-full justify-start">
+            <button className="w-6/8 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
+              forgot password
+            </button>
+          </div>
+          <div className="flex w-full justify-center">
+            <Link className="flex w-full justify-end" href={"/un_auth/signup"}>
+              <button className="w-6/8 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
+                Sign Up
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

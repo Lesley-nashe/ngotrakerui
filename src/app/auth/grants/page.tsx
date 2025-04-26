@@ -1,24 +1,16 @@
 "use client";
-import { GetGrantsRequest } from "@/app/api/grants/route";
 import GrantCompoent from "@/components/grantComponent";
-import { GrantDetails } from "@/lib/utils";
+import { fetchGrantsClient } from "@/lib/grants/fetchGrantsClient";
+import { GrantType } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const GrantListPage = () => {
-  const [grants, setGrants] = useState<GrantDetails[]>();
+  const [grants, setGrants] = useState<GrantType[]>();
   useEffect(() => {
     async function fetchAndAssign() {
-      const data = await GetGrantsRequest();
-      setGrants(
-        data.result.map(
-          (item: GrantDetails) => {
-            return {
-              ...item,
-            } as GrantDetails;
-          }
-        )
-      );
+      const data = await fetchGrantsClient();
+      setGrants(data);
     }
     fetchAndAssign();
   }, []);

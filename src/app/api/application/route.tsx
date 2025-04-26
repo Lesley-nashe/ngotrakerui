@@ -1,24 +1,22 @@
 import { apiUrl } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-export const fetchApplications = async () => {
+export async function Get() {
   try {
-    const applicationsfetch = await fetch(
-      `${apiUrl}/Application/applications`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const res = await fetch(`${apiUrl}/Application/applications`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
 
-    if (!applicationsfetch.ok) {
+    if (!res.ok) {
       throw new Error("Failed to load appliations");
     }
-
-    return await applicationsfetch.json();
+    const data = await res.json();
+    return NextResponse.json({ result: data });
   } catch (error) {
+    console.error("Server error:", error);
     return NextResponse.json(
-      { error, err: "Applications fetch failed" },
+      { error: true, message: "Internal Server Error" },
       { status: 500 }
     );
   }
