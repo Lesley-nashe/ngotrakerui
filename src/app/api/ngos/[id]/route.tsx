@@ -1,13 +1,19 @@
-import { apiUrl, NgoFormData } from "@/lib/utils";
+import { apiUrl } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req: NextRequest, Options: NgoFormData) {
+export async function PUT(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  const body = await req.json();
+  const { id } = context.params;
   try {
-    const res = await fetch(`${apiUrl}/Ngo/ngo`, {
+    const res = await fetch(`${apiUrl}/Ngo/ngo?id=${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        ...Options,
+        id,
+        ...body,
       }),
     });
 

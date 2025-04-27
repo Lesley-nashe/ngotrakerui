@@ -21,7 +21,7 @@ export const fetchNgosClient = async (): Promise<NgoType[]> => {
 
 export const SendNgosClient = async (item: NgoFormData) => {
   try {
-    const res = await fetch("/api/ngo", {
+    const res = await fetch("/api/ngos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

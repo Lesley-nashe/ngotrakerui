@@ -11,7 +11,7 @@ const NgoCompoent: FC<NgoDetails> = ({name, country, mission}) => {
     <div className="bg-white shadow-md rounded-2xl p-5 border border-gray-100">
       <h2 className="text-xl font-semibold text-indigo-600">{name}</h2>
       <p className="text-gray-500 text-sm">{country}</p>
-      <p className="mt-2 text-gray-700 text-sm">{mission}</p>
+      <p className="mt-2 text-gray-700 truncate text-ellipsis text-sm">{mission}</p>
     </div>
   );
 };
