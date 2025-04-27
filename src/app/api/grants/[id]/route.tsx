@@ -3,20 +3,23 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const id = params.id;
   const body = await req.json();
+  const { id } = await context.params;
 
-  const res = await fetch(`${apiUrl}/Grant/grant/${id}`, {
+  const res = await fetch(`${apiUrl}/Grant/grant?id=${id}`, {
     method: "PUT",
-    body: JSON.stringify({ ...body }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id, ...body }),
   });
 
   if (!res.ok) {
     const errorData = await res.json();
-    console.error(" Grant Update failed", errorData);
-    return { error: true, message: errorData.message || "Unknown error" };
+    return NextResponse.json(
+      { error: errorData.message },
+      { status: res.status }
+    );
   }
 
   return NextResponse.json({ message: `Grant Update successfully` });
@@ -24,9 +27,9 @@ export async function PUT(
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
+  const { id } = await context.params;
   try {
     const res = await fetch(`${apiUrl}/Grant/grant?Id=${id}`);
     if (!res.ok) {

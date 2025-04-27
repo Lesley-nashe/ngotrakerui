@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   const body = await req.json();
-  const { id } = context.params;
+  const { id } = await context.params;
   try {
     const res = await fetch(`${apiUrl}/Ngo/ngo?id=${id}`, {
       method: "PUT",
@@ -34,9 +34,9 @@ export async function PUT(
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
+  const { id } = await context.params;
   try {
     const res = await fetch(`${apiUrl}/Ngo/ngo?Id=${id}`, {
       method: "GET",

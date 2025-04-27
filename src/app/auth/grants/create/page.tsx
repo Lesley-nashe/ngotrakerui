@@ -1,6 +1,6 @@
 "use client";
 
-import { CreateGrantRequest } from "@/app/api/grants/route";
+import { SendGrantsClient } from "@/lib/grants/fetchGrantsClient";
 import { GrantFormData, grantSchema } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -14,8 +14,8 @@ const CreateGrant = () => {
     resolver: yupResolver(grantSchema),
   });
 
-  const onSumbit = async (data: GrantFormData) => {
-    const result = await CreateGrantRequest({
+  const onSubmit = async (data: GrantFormData) => {
+    const result = await SendGrantsClient({
       ...data
     });
 
@@ -35,10 +35,9 @@ const CreateGrant = () => {
       <div className="flex items-center justify-center">
         <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-2xl">
           <h1 className="text-2xl font-bold text-gray-800 mb-6">
-            Create New Grant
+            Update Grant
           </h1>
-
-          <form className="space-y-5" onSubmit={handleSubmit(onSumbit)}>
+          <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Title
@@ -50,6 +49,18 @@ const CreateGrant = () => {
                 {...register("title")}
               />
               <p>{errors.title?.message}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Currency
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. Education Support Grant"
+                className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                {...register("currency")}
+              />
+              <p>{errors.currency?.message}</p>
             </div>
 
             <div className="flex gap-4 w-full">
@@ -136,7 +147,7 @@ const CreateGrant = () => {
               type="submit"
               className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition"
             >
-              Publish Grant
+              Create Grant
             </button>
           </form>
         </div>

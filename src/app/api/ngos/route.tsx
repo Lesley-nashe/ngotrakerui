@@ -22,7 +22,6 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    console.log(body);
     const res = await fetch(`${apiUrl}/Ngo/ngo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

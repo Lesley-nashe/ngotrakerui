@@ -1,5 +1,5 @@
-import { apiUrl, GrantFormData } from "@/lib/utils";
-import { NextResponse } from "next/server";
+import { apiUrl } from "@/lib/utils";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   try {
@@ -18,14 +18,14 @@ export async function GET() {
   }
 }
 
-export async function POST(Options: GrantFormData) {
+export async function POST(req: NextRequest) {
   try {
+    const body = await req.json();
+    console.log(body)
     const res = await fetch(`${apiUrl}/Grant/grant`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...Options,
-      }),
+      body: JSON.stringify(body),
     });
     if (!res.ok) {
       const errorData = await res.json();

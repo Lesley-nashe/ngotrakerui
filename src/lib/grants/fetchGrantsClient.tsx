@@ -23,7 +23,14 @@ export const SendGrantsClient = async (item: GrantFormData) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        ...item,
+        title: item.title,
+        provider: item.provider,
+        amount: item.amount,
+        currency: item.currency,
+        description: item.description,
+        eligibility: item.eligibility,
+        contactPhone: item.phoneNumber,
+        status: "pending",
       }),
     });
 
@@ -49,14 +56,23 @@ export const fetchGrantClient = async (id: string): Promise<GrantType> => {
     console.error("Client fetch error:", error);
     throw Error;
   }
-}
+};
 
-export const UpdateGrantClient = async(id: string, item: GrantFormData) => {
+export const UpdateGrantClient = async (id: string, item: GrantFormData) => {
   try {
     const res = await fetch(`/api/grants/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({...item})
+      body: JSON.stringify({
+        title: item.title,
+        provider: item.provider,
+        amount: item.amount,
+        currency: item.currency,
+        description: item.description,
+        eligibility: item.eligibility,
+        contactPhone: item.phoneNumber,
+        status: "pending",
+      }),
     });
     if (!res.ok) throw new Error("Failed to fetch grants");
 
@@ -67,4 +83,4 @@ export const UpdateGrantClient = async(id: string, item: GrantFormData) => {
     console.error("Client fetch error:", error);
     throw Error;
   }
-}
+};

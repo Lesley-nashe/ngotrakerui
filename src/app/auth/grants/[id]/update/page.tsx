@@ -87,10 +87,21 @@ const UpdateGrant = ({ params }: Props) => {
                   type="text"
                   placeholder="e.g. Education Support Grant"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                  disabled={true}
                   {...register("title")}
                 />
                 <p>{errors.title?.message}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Currency
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Education Support Grant"
+                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register("currency")}
+                />
+                <p>{errors.currency?.message}</p>
               </div>
 
               <div className="flex gap-4 w-full">
