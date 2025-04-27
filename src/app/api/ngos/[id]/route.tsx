@@ -1,7 +1,7 @@
-import { apiUrl, NgoFormData, NgoType } from "@/lib/utils";
+import { apiUrl, NgoFormData } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req: NextRequest,Options: NgoFormData) {
+export async function PUT(req: NextRequest, Options: NgoFormData) {
   try {
     const res = await fetch(`${apiUrl}/Ngo/ngo`, {
       method: "PUT",
@@ -26,7 +26,11 @@ export async function PUT(req: NextRequest,Options: NgoFormData) {
   }
 }
 
-export async function GET(id: string) {
+export async function GET(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { id } = context.params;
   try {
     const res = await fetch(`${apiUrl}/Ngo/ngo?Id=${id}`, {
       method: "GET",
@@ -38,21 +42,21 @@ export async function GET(id: string) {
       throw new Error("Failed to fetch NGO");
     }
 
-    const fetchedNgo = res.json();
-    const data = await fetchedNgo;
-    return {
-      name: data.result.name,
-      registrationNumber: data.result.registrationNumber,
-      description: data.result.description,
-      sector: data.result.sector,
-      country: data.result.country,
-      address: data.result.address,
-      contactEmail: data.result.contactEmail,
-      contactPhone: data.result.contactPhone,
-      website: "https://website.com",
-      logoUrl: "https://logourl.com",
-      verified: true,
-    } as NgoType;
+    const data = await res.json();
+    return NextResponse.json({ result: data.result });
+    // return {
+    //   name: data.result.name,
+    //   registrationNumber: data.result.registrationNumber,
+    //   description: data.result.description,
+    //   sector: data.result.sector,
+    //   country: data.result.country,
+    //   address: data.result.address,
+    //   contactEmail: data.result.contactEmail,
+    //   contactPhone: data.result.contactPhone,
+    //   website: "https://website.com",
+    //   logoUrl: "https://logourl.com",
+    //   verified: true,
+    // };
   } catch (error) {
     console.error("Server error:", error);
     return NextResponse.json(

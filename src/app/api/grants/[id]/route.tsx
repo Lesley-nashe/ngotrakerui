@@ -29,7 +29,6 @@ export async function GET(
   const { id } = context.params;
   try {
     const res = await fetch(`${apiUrl}/Grant/grant?Id=${id}`);
-    console.log(res);
     if (!res.ok) {
       throw new Error("Failed to fetch Grant");
     }

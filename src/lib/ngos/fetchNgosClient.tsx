@@ -38,3 +38,38 @@ export const SendNgosClient = async (item: NgoFormData) => {
     return [];
   }
 };
+
+export const fetchNgoClient = async (id: string): Promise<NgoType> => {
+  try {
+    const res = await fetch(`/api/ngos/${id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!res.ok) throw new Error("Failed to fetch ngo");
+
+    const data = await res.json();
+    console.log(data.result);
+    return data.result;
+  } catch (error) {
+    console.error("Client fetch error:", error);
+    throw Error;
+  }
+}
+
+export const UpdateNgoClient = async(id: string, item: NgoFormData) => {
+  try {
+    const res = await fetch(`/api/ngos/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({...item})
+    });
+    if (!res.ok) throw new Error("Failed to update NGO");
+
+    const data = await res.json();
+    console.log(data.result);
+    return data.result;
+  } catch (error) {
+    console.error("Client fetch error:", error);
+    throw Error;
+  }
+}

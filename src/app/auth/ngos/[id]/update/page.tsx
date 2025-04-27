@@ -1,6 +1,6 @@
 "use client";
 
-import { GetNgoRequest, UpdateNgoRequest } from "@/app/api/ngos/route";
+import { fetchNgoClient, UpdateNgoClient } from "@/lib/ngos/fetchNgosClient";
 import { NgoFormData, ngoSchema, NgoType } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { use, useEffect } from "react";
@@ -34,7 +34,7 @@ const UpdateNGO = ({ params }: Props) => {
 
   useEffect(() => {
     async function getNgo() {
-      const ngoFetch: NgoType = await GetNgoRequest(id);
+      const ngoFetch: NgoType = await fetchNgoClient(id);
       reset({
         ...ngoFetch,
       });
@@ -44,7 +44,7 @@ const UpdateNGO = ({ params }: Props) => {
 
   const onSumbit = async (data: NgoFormData) => {
     try {
-      const result = await UpdateNgoRequest({
+      const result = await UpdateNgoClient(id, {
         ...data,
       });
 
