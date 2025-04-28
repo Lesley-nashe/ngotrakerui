@@ -61,7 +61,7 @@ const CreateNGO = () => {
               <p>{errors.name?.message}</p>
             </div>
 
-            <div className="flex gap-4 w-full">
+            <div className="flex gap-4 w-full md:flex-row sm:flex-col">
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
                   address (incl City/Town)
@@ -88,7 +88,7 @@ const CreateNGO = () => {
               </div>
             </div>
 
-            <div className="flex gap-4 w-full">
+            <div className="flex gap-4 w-full md:flex-row sm:flex-col">
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
                   Registration Num
@@ -115,7 +115,7 @@ const CreateNGO = () => {
               </div>
             </div>
 
-            <div className="flex gap-4 w-full">
+            <div className="flex gap-4 w-full md:flex-row sm:flex-col">
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
                   Email
@@ -142,7 +142,7 @@ const CreateNGO = () => {
               </div>
             </div>
 
-            <div className="flex gap-4 w-full">
+            <div className="flex gap-4 w-full md:flex-row sm:flex-col">
               <div className=" w-full">
                 <label className="block text-sm font-medium text-gray-700">
                   website

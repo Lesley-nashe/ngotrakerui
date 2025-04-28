@@ -10,7 +10,7 @@ const Sidebar = () => {
     { name: "Applications", path: "/auth/applications" },
   ];
   return (
-      <aside className="w-64 h-full bg-white shadow-md border-r hidden md:block">
+      <aside className="w-64 h-full bg-white shadow-md border-r">
         <div className="px-6 py-4 text-2xl font-bold text-indigo-600">
           NGO Tracker
         </div>

@@ -15,11 +15,11 @@ function AuthLayout({
       <body>
         <div className="min-h-screen flex bg-gray-50 relative">
           {/* Sidebar */}
-          <div className="fixed top-0 left-0 h-screen w-64 bg-white border-r z-40">
+          <div className="fixed top-0 left-0 h-screen w-64 bg-white border-r z-40 hidden md:block">
             <Sidebar />
           </div>
           {/* Content */}
-          <div className="ml-64 flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col sm:ml-0 md:ml-64">
             {/* Topbar */}
             <Navbar />
             {/* Page content */}

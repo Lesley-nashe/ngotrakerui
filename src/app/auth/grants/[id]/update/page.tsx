@@ -98,20 +98,19 @@ const UpdateGrant = ({ params }: Props) => {
                 />
                 <p>{errors.title?.message}</p>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Currency
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. Education Support Grant"
-                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                  {...register("currency")}
-                />
-                <p>{errors.currency?.message}</p>
-              </div>
-
-              <div className="flex gap-4 w-full">
+              <div className="flex gap-4 w-full md:flex-row sm:flex-col">
+                <div className=" w-full">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Currency
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Education Support Grant"
+                    className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    {...register("currency")}
+                  />
+                  <p>{errors.currency?.message}</p>
+                </div>
                 <div className=" w-full">
                   <label className="block text-sm font-medium text-gray-700">
                     Amount (USD)
@@ -124,6 +123,9 @@ const UpdateGrant = ({ params }: Props) => {
                   />
                   <p>{errors.amount?.message}</p>
                 </div>
+              </div>
+
+              <div className="flex gap-4 w-full md:flex-row sm:flex-col">
                 <div className=" w-full">
                   <label className="block text-sm font-medium text-gray-700">
                     Provider
@@ -137,9 +139,6 @@ const UpdateGrant = ({ params }: Props) => {
                   />
                   <p>{errors.provider?.message}</p>
                 </div>
-              </div>
-
-              <div className="flex gap-4 w-full">
                 <div className=" w-full">
                   <label className="block text-sm font-medium text-gray-700">
                     Eligibility
@@ -151,6 +150,22 @@ const UpdateGrant = ({ params }: Props) => {
                     {...register("eligibility")}
                   />
                   <p>{errors.eligibility?.message}</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4 w-full md:flex-row sm:flex-col">
+                <div className=" w-full">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="City, Country"
+                    className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    disabled={true}
+                    {...register("email")}
+                  />
+                  <p>{errors.email?.message}</p>
                 </div>
                 <div className=" w-full">
                   <label className="block text-sm font-medium text-gray-700">
@@ -166,23 +181,6 @@ const UpdateGrant = ({ params }: Props) => {
                   <p>{errors.phoneNumber?.message}</p>
                 </div>
               </div>
-
-              <div className="flex gap-4 w-full">
-                <div className=" w-full">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Email
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="City, Country"
-                    className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                    disabled={true}
-                    {...register("email")}
-                  />
-                  <p>{errors.email?.message}</p>
-                </div>
-              </div>
-
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Description
