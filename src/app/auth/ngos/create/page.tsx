@@ -1,11 +1,15 @@
 "use client";
 
+import LoadingSpinner from "@/components/loadingSpinner";
 import { SendNgosClient } from "@/lib/ngos/fetchNgosClient";
 import { NgoFormData, ngoSchema } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { redirect } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const CreateNGO = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -15,14 +19,18 @@ const CreateNGO = () => {
   });
 
   const onSubmit = async (data: NgoFormData) => {
+    setIsLoading(true);
     const result = await SendNgosClient({
       ...data,
     });
 
     if (!result) {
+      setIsLoading(false);
       console.log(result);
     } else {
+      setIsLoading(false);
       console.log("Ngo Created!", result);
+      redirect("/auth/ngos");
     }
   };
 
@@ -190,7 +198,7 @@ const CreateNGO = () => {
               type="submit"
               className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition"
             >
-              Submit NGO
+              {isLoading ? <LoadingSpinner /> : "Submit NGO"}
             </button>
           </form>
         </div>

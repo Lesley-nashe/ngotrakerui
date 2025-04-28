@@ -1,11 +1,15 @@
 "use client";
 
+import LoadingSpinner from "@/components/loadingSpinner";
 import { SendGrantsClient } from "@/lib/grants/fetchGrantsClient";
 import { GrantFormData, grantSchema } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { redirect } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const CreateGrant = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -15,14 +19,18 @@ const CreateGrant = () => {
   });
 
   const onSubmit = async (data: GrantFormData) => {
+    setIsLoading(true);
     const result = await SendGrantsClient({
-      ...data
+      ...data,
     });
 
     if (!result) {
+      setIsLoading(false);
       console.log(result);
     } else {
+      setIsLoading(false);
       console.log("Rgistered!", result);
+      redirect("/auth/grants");
     }
   };
   return (
@@ -147,7 +155,7 @@ const CreateGrant = () => {
               type="submit"
               className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition"
             >
-              Create Grant
+              {isLoading ? <LoadingSpinner /> : "Create Grant"}
             </button>
           </form>
         </div>

@@ -1,9 +1,11 @@
 "use client";
 
+import LoadingSpinner from "@/components/loadingSpinner";
 import { fetchNgoClient, UpdateNgoClient } from "@/lib/ngos/fetchNgosClient";
 import { NgoFormData, ngoSchema, NgoType } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { use, useEffect } from "react";
+import { redirect } from "next/navigation";
+import { use, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface Props {
@@ -12,6 +14,7 @@ interface Props {
 
 const UpdateNGO = ({ params }: Props) => {
   const { id } = use(params);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -44,14 +47,18 @@ const UpdateNGO = ({ params }: Props) => {
 
   const onSumbit = async (data: NgoFormData) => {
     try {
+      setIsLoading(true);
       const result = await UpdateNgoClient(id, {
         ...data,
       });
 
       if (!result) {
+        setIsLoading(false);
         console.log(result);
       } else {
+        setIsLoading(false);
         console.log("Rgistered!", result);
+        redirect("/auth/ngos");
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -222,7 +229,7 @@ const UpdateNGO = ({ params }: Props) => {
               type="submit"
               className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition"
             >
-              Submit NGO
+              {isLoading ? <LoadingSpinner /> : "Submit NGO"}
             </button>
           </form>
         </div>

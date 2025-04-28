@@ -1,11 +1,13 @@
 "use client";
 
+import LoadingSpinner from "@/components/loadingSpinner";
 import {
   fetchGrantClient,
   UpdateGrantClient,
 } from "@/lib/grants/fetchGrantsClient";
 import { GrantFormData, grantSchema, GrantType } from "@/lib/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { redirect } from "next/navigation";
 import { use, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -14,6 +16,7 @@ interface Props {
 }
 
 const UpdateGrant = ({ params }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const { id } = use(params);
 
   const {
@@ -56,12 +59,16 @@ const UpdateGrant = ({ params }: Props) => {
   }, [reset, id]);
 
   const onSumbit = async (data: GrantFormData) => {
+    setIsLoading(true);
     const result = await UpdateGrantClient(id, { ...data });
 
     if (!result) {
+      setIsLoading(false);
       console.log(result);
     } else {
+      setIsLoading(false);
       console.log("Rgistered!", result);
+      redirect("/auth/grants");
     }
   };
 
@@ -194,7 +201,7 @@ const UpdateGrant = ({ params }: Props) => {
                 type="submit"
                 className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition"
               >
-                Update Grant
+                {isLoading ? <LoadingSpinner /> : "Update Grant"}
               </button>
             </form>
           )}
