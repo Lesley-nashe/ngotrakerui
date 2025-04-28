@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingSpinner from "@/components/loadingSpinner";
 import NgoCompoent from "@/components/ngoComponent";
 import { fetchNgosClient } from "@/lib/ngos/fetchNgosClient";
 import { NgoType } from "@/lib/utils";
@@ -30,7 +31,7 @@ const NgoListPage = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {ngos?.map((ngo, i) => (
+        {!ngos ? <LoadingSpinner /> : ngos?.map((ngo, i) => (
           <Link key={i} href={`ngos/${ngo.id}/update`}>
             <NgoCompoent
               name={ngo.name}

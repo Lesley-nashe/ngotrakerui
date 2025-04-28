@@ -84,7 +84,7 @@ const UpdateGrant = ({ params }: Props) => {
           <h1 className="text-2xl font-bold text-gray-800 mb-6">
             Update Grant
           </h1>
-          {grant && (
+          {grant ? (
             <form className="space-y-5" onSubmit={handleSubmit(onSumbit)}>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
@@ -202,6 +202,8 @@ const UpdateGrant = ({ params }: Props) => {
                 {isLoading ? <LoadingSpinner /> : "Update Grant"}
               </button>
             </form>
+          ) : (
+            <LoadingSpinner />
           )}
         </div>
       </div>

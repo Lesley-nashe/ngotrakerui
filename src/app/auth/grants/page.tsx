@@ -1,5 +1,6 @@
 "use client";
 import GrantCompoent from "@/components/grantComponent";
+import LoadingSpinner from "@/components/loadingSpinner";
 import { fetchGrantsClient } from "@/lib/grants/fetchGrantsClient";
 import { GrantType } from "@/lib/utils";
 import Link from "next/link";
@@ -29,16 +30,20 @@ const GrantListPage = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {grants?.map((grant, i) => (
-          <Link key={i} href={`grants/${grant.id}/update`}>
-            <GrantCompoent
-              title={grant.title}
-              provider={grant.provider}
-              description={grant.description}
-              key={i}
-            />
-          </Link>
-        ))}
+        {!grants ? (
+          <LoadingSpinner />
+        ) : (
+          grants.map((grant, i) => (
+            <Link key={i} href={`grants/${grant.id}/update`}>
+              <GrantCompoent
+                title={grant.title}
+                provider={grant.provider}
+                description={grant.description}
+                key={i}
+              />
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );
