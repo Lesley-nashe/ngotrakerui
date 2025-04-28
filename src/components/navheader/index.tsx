@@ -1,6 +1,5 @@
 "use client";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -11,11 +10,6 @@ const Navbar = () => {
         <span className="text-sm text-gray-600">
          {session?.user.email}
         </span>
-        <Image
-          src=""
-          alt="User Avatar"
-          className="w-8 h-8 rounded-full border"
-        />
       </div>
     </header>
   );

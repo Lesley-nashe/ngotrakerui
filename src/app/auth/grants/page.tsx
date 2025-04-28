@@ -25,7 +25,7 @@ const GrantListPage = () => {
           className="flex justify-center align-center bg-indigo-600 text-white h-10 py-2 px-4 rounded-lg hover:bg-indigo-700 transition"
           href={`grants/create`}
         >
-          <p>Submit Grant</p>
+          <p>+ Add Grant</p>
         </Link>
       </div>
 

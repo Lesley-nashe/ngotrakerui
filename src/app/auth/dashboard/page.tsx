@@ -25,7 +25,7 @@ const Dashboard = async () => {
           <Link key={i} href={stat.path}>
             <div
               key={stat.label}
-              className="bg-white shadow-md rounded-2xl p-6 border border-gray-100"
+              className="bg-white shadow-md rounded-2xl p-6 border border-gray-100 duration-300 ease-out"
             >
               <p className="text-sm text-gray-500">{stat.label}</p>
               <p className="text-2xl font-semibold text-indigo-600 mt-1">
