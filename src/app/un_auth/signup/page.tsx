@@ -1,6 +1,6 @@
 "use client";
 
-import FormInput from "@/components/form/Input";
+import FormInput from "@/components/form/Input/index";
 import { useForm } from "react-hook-form";
 import React from "react";
 import Registration from "@/app/api/register/route";

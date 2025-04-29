@@ -1,7 +1,7 @@
 "use client";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import FormInput from "../../../components/form/Input";
+import FormInput from "@/components/form/Input/index";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { LoginFormData, loginSchema } from "@/lib/utils";
