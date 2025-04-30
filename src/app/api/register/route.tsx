@@ -1,22 +1,14 @@
-import { apiUrl, RegistrationOption } from "@/lib/utils";
-import { NextResponse } from "next/server";
+import { apiUrl } from "@/lib/utils";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function Registration(Options: RegistrationOption) {
+export async function POST(req: NextRequest) {
   try {
-    const { firstName, secondName, role, email, password } = Options;
-
+    const body = await req.json();
     const res = await fetch(`${apiUrl}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        firstName,
-        secondName,
-        role,
-        email,
-        password,
-      }),
+      body: JSON.stringify(body),
     });
-
     if (!res.ok) {
       const errorData = await res.json();
       return NextResponse.json(
@@ -24,7 +16,6 @@ export default async function Registration(Options: RegistrationOption) {
         { status: res.status }
       );
     }
-
     return NextResponse.json({ message: "User registered successfully" });
   } catch (error) {
     return NextResponse.json(

@@ -1,9 +1,8 @@
 "use client";
 
-import { fetchApplications } from "@/app/api/application/route";
+import { fetchApplicationsClient } from "@/lib/applications/fetchApplicationsClient";
 import { ApplicationsType } from "@/lib/utils";
 import { useEffect, useState } from "react";
-
 
 const columns = ["ngo", "grant", "status", "date"];
 
@@ -11,14 +10,8 @@ const ApplicationsPage = () => {
   const [applications, setApplications] = useState<ApplicationsType[]>([]);
   useEffect(() => {
     async function GetApplications() {
-      const appsfetch = await fetchApplications();
-      setApplications(
-        appsfetch.result.map((item: ApplicationsType) => {
-          return {
-            ...item,
-          } as ApplicationsType;
-        })
-      );
+      const appsfetch = await fetchApplicationsClient();
+      setApplications(appsfetch);
     }
     GetApplications();
   }, []);

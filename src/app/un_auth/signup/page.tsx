@@ -3,10 +3,10 @@
 import FormInput from "@/components/form/input";
 import { useForm } from "react-hook-form";
 import React from "react";
-import Registration from "@/app/api/register/route";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegistrationFormData, signUpSchema } from "@/lib/utils";
 import { NextResponse } from "next/server";
+import { RegisterUserClient } from "@/lib/register/registerUsersClient";
 
 const SignUpPage = () => {
   const {
@@ -19,9 +19,9 @@ const SignUpPage = () => {
 
   const onSumbit = async (data: RegistrationFormData) => {
     try {
-      const result = await Registration({
+      const result = await RegisterUserClient({
         ...data,
-      });
+    });
 
       if (!result) {
         throw new Error("Something is wrong, registartion return nothing");

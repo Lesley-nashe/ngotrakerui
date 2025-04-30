@@ -1,7 +1,7 @@
 import { apiUrl } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-export async function Get() {
+export async function GET() {
   try {
     const res = await fetch(`${apiUrl}/Application/applications`, {
       method: "GET",
