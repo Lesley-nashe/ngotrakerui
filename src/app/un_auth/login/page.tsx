@@ -1,7 +1,6 @@
 "use client";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import FormInput from "@/components/form/input";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { LoginFormData, loginSchema } from "@/lib/utils";
@@ -36,12 +35,28 @@ const LoginPage = () => {
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
         <form onSubmit={handleSubmit(onSumbit)}>
           <div className="mb-4">
-            <FormInput title={"Email:"} {...register("email")} />
+            <label className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type={"text"}
+              placeholder="e.g. example@gmail.com"
+              className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              {...register("email")}
+            />
             <p>{errors.email?.message}</p>
           </div>
 
           <div className="mb-6">
-            <FormInput title={"Password:"} {...register("password")} />
+            <label className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              type={"password"}
+              placeholder="........"
+              className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              {...register("password")}
+            />
             <p>{errors.password?.message}</p>
           </div>
 

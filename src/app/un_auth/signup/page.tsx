@@ -1,6 +1,5 @@
 "use client";
 
-import FormInput from "@/components/form/input";
 import { useForm } from "react-hook-form";
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,7 +20,7 @@ const SignUpPage = () => {
     try {
       const result = await RegisterUserClient({
         ...data,
-    });
+      });
 
       if (!result) {
         throw new Error("Something is wrong, registartion return nothing");
@@ -54,16 +53,23 @@ const SignUpPage = () => {
         <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
         <form onSubmit={handleSubmit(onSumbit)}>
           <div className="grid grid-cols-2 gap-4">
-            {fields.map(({ label, name, type }) => (
-              <div className="mb-4" key={name}>
-                <FormInput title={label} type={type} {...register(name)} />
+            {fields.map(({ label, name, type }, key) => (
+              <div key={key}>
+                <label className="block text-sm font-medium text-gray-700">
+                  {label}
+                </label>
+                <input
+                  type={type}
+                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  {...register(name)}
+                />
                 <p>{errors.root?.message}</p>
               </div>
             ))}
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition mt-4"
           >
             Create Account
           </button>
