@@ -32,7 +32,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows
     steps:
     - uses: actions/checkout@v4
 
@@ -57,7 +57,7 @@ jobs:
   deploy:
     permissions:
       contents: none
-    runs-on: ubuntu-latest
+    runs-on: windows
     needs: build
     environment:
       name: 'Development'
