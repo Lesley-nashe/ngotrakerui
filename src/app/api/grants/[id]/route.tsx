@@ -31,13 +31,13 @@ export async function GET(
 ) {
   const { id } = await context.params;
   try {
-    const res = await fetch(`${apiUrl}/Grant/grant?Id=${id}`);
+    const res = await fetch(`${apiUrl}/Grant/grant/${id}`);
     if (!res.ok) {
       throw new Error("Failed to fetch Grant");
     }
 
     const data = await res.json();
-    return NextResponse.json({ result: data.result });
+    return NextResponse.json({ result: data });
   } catch (error) {
     console.error("Server error:", error);
     return NextResponse.json(

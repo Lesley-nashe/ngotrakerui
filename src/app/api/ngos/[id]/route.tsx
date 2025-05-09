@@ -38,7 +38,7 @@ export async function GET(
 ) {
   const { id } = await context.params;
   try {
-    const res = await fetch(`${apiUrl}/Ngo/ngo?Id=${id}`, {
+    const res = await fetch(`${apiUrl}/Ngo/ngo/${id}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
@@ -49,7 +49,7 @@ export async function GET(
     }
 
     const data = await res.json();
-    return NextResponse.json({ result: data.result });
+    return NextResponse.json({ result: data });
     // return {
     //   name: data.result.name,
     //   registrationNumber: data.result.registrationNumber,

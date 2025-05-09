@@ -9,9 +9,7 @@ export const fetchNgosClient = async (): Promise<NgoType[]> => {
       headers: { "Content-Type": "application/json" },
     });
     if (!res.ok) throw new Error("Failed to fetch ngos");
-
     const data = await res.json();
-    console.log(data.result);
     return data.result;
   } catch (error) {
     console.error("Client fetch error:", error);

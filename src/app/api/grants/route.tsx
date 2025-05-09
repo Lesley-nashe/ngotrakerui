@@ -8,7 +8,7 @@ export async function GET() {
       throw new Error("Failed to fetch the grants");
     }
     const data = await res.json();
-    return NextResponse.json({ result: data.result });
+    return NextResponse.json({ result: data });
   } catch (error) {
     console.error("Server error:", error);
     return NextResponse.json(

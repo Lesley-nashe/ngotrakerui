@@ -9,7 +9,6 @@ export const fetchGrantsClient = async (): Promise<GrantType[]> => {
     if (!res.ok) throw new Error("Failed to fetch grants");
 
     const data = await res.json();
-    console.log(data.result);
     return data.result;
   } catch (error) {
     console.error("Client fetch error:", error);
