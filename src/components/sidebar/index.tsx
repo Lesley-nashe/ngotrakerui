@@ -1,12 +1,12 @@
 import {
   Bank,
   BuildingOffice,
-  Gear,
   House,
   LampPendant,
 } from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import UserSetting from "../user";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -66,7 +66,8 @@ const Sidebar = () => {
             <p className="text-sm">Admin</p>
           </div>
           <div className="mt-3">
-            <Gear size={22} weight="light" />
+            {/* <Gear size={22} weight="light" /> */}
+            <UserSetting />
           </div>
         </div>
       </div>
