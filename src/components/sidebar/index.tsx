@@ -6,7 +6,7 @@ import {
 } from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import UserSetting from "../user";
+import UserSettings from "../user";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -67,7 +67,7 @@ const Sidebar = () => {
           </div>
           <div className="mt-3">
             {/* <Gear size={22} weight="light" /> */}
-            <UserSetting />
+            <UserSettings />
           </div>
         </div>
       </div>
