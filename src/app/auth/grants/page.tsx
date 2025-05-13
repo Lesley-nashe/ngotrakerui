@@ -19,13 +19,15 @@ const GrantListPage = () => {
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex justify-between py-3">
         <h1 className="text-3xl font-bold mb-6 text-gray-800">
-          Registered Grants
+          <p className="hidden md:block">Registered Grants</p>
+          <p className="block md:hidden">Grants</p>
         </h1>
         <Link
           className="flex justify-center align-center bg-indigo-600 text-white h-10 py-2 px-4 rounded-lg hover:bg-indigo-700 transition"
           href={`grants/create`}
         >
-          <p>+ Add Grant</p>
+          <p className="hidden md:block">+ Add Grant</p>
+          <p className="block md:hidden">+</p>
         </Link>
       </div>
 

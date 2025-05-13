@@ -18,12 +18,12 @@ function UserSettings() {
       <button
         type="button"
         onClick={toggleMenu}
-        className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50"
+        className="inline-flex w-full border-none justify-center gap-x-1.5 bg-white text-sm font-semibold text-gray-900 shadow-xs ring-inset hover:bg-gray-50"
         id="menu-button"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <Gear size={22} weight="light" />
+        <Gear size={28} weight="light" />
       </button>
 
       {isOpen && (

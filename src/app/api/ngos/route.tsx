@@ -7,7 +7,6 @@ export async function GET() {
     if (!res.ok) {
       throw new Error("Failed to fetch NGOs");
     }
-
     const data = await res.json();
     return NextResponse.json({ result: data });
   } catch (error) {

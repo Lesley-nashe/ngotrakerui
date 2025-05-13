@@ -65,8 +65,7 @@ const Sidebar = () => {
             <h1 className="font-bold">Admin User</h1>
             <p className="text-sm">Admin</p>
           </div>
-          <div className="mt-3">
-            {/* <Gear size={22} weight="light" /> */}
+          <div>
             <UserSettings />
           </div>
         </div>

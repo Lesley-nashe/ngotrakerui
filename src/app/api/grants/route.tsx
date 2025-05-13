@@ -21,7 +21,6 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    console.log(body)
     const res = await fetch(`${apiUrl}/Grant/grant`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
