@@ -15,7 +15,7 @@ function AuthLayout({
     <html lang="en">
       <body>
         <SessionProvider>
-          <div className="min-h-screen flex bg-gray-50 relative">
+          <div className="min-h-screen flex bg-stone-300 relative">
             {/* Sidebar */}
             <div className="fixed top-0 left-0 h-screen w-64 bg-white border-r z-40 hidden md:block">
               <Sidebar />

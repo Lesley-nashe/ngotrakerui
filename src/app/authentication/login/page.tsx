@@ -74,7 +74,7 @@ const LoginPage = () => {
             </button>
           </div>
           <div className="flex w-full justify-center">
-            <Link className="flex w-full justify-end" href={"/un_auth/signup"}>
+            <Link className="flex w-full justify-end" href={"/authentication/signup"}>
               <button className="w-6/8 bg-gray-300 text-black py-2 rounded-xl hover:bg-gray-900 hover:text-white transition">
                 Sign Up
               </button>

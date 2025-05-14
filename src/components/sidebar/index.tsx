@@ -33,19 +33,19 @@ const Sidebar = () => {
     },
   ];
   return (
-    <aside className="grid grid-cols-1 w-64 h-full bg-white shadow-md border-r content-between">
+    <aside className="grid grid-cols-1 w-64 h-full bg-slate-200 shadow-md border-r content-between">
       <div className="">
-        <div className="px-6 py-4 text-2xl font-bold text-indigo-600">
+        <div className="px-6 py-4 text-2xl font-bold text-lime-400">
           NGO Tracker
         </div>
-        <nav className="space-y-2">
+        <nav className="">
           {navItems.map((item) => (
             <Link
               key={item.path}
               href={item.path}
-              className={`block px-6 py-3 rounded-lg transition ${
+              className={`block px-6 py-5 transition ${
                 pathname === item.path
-                  ? "bg-indigo-100 text-indigo-700 font-semibold"
+                  ? "bg-slate-400 text-teal-200 font-semibold"
                   : "text-gray-600 hover:bg-gray-100"
               }`}
             >
